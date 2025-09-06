@@ -366,6 +366,7 @@
 <li><a href="#section-key-features">주요 기능 및 아키텍처</a></li>
 <li><a href="#section-business-impact">핵심 성과: 데이터 품질 혁신을 통한 현장 의사결정 신뢰성 확보</a></li>
     <li><a href="#section-case-studies">Case Studies: 2~3개로 깊이 있게</a></li>
+    <li><a href="#section-staging-v340">Staging & 3‑Tier (v3.4.0)</a></li>
 </ul>
 </li>
 <li><a href="#section-future-vision"><strong>Next Steps:</strong> 예측·이벤트 기반으로 확장</a></li>
@@ -445,6 +446,19 @@
     <p class="source-note">
                         *모든 성과 수치는 &#39;TwinfaX2 포트폴리오&#39; 문서에 근거합니다. (2025-07-25 기준)
                     </p>
+    <h3 id="section-staging-v340">Staging & 3‑Tier 업그레이드 (v3.4.0)</h3>
+    <div class="info-box">
+      <p>모듈 의존성 정리 및 신규 <strong>utils</strong> 모듈 반영, <strong>3‑Tier</strong> 환경 도입으로 안정성·확장성을 크게 개선했습니다.</p>
+    </div>
+    <ul>
+      <li><strong>BE‑staging 환경 구축:</strong> GitHub Actions 기반 완전한 테스트 환경, <em>TwinfaX2/BE‑staging</em> 저장소로 독립 운영</li>
+      <li><strong>1‑cycle 테스트:</strong> 로컬과 동일하게 <em>추출 → DB 적재</em> 전체 사이클을 CI 상에서 검증</li>
+      <li><strong>보안/설정:</strong> GitHub Secrets로 환경변수 안전 관리</li>
+      <li><strong>Zero‑risk 배포:</strong> Railway 배포 전 <strong>사전 검증</strong>으로 운영 리스크 제거</li>
+      <li><strong>데이터 소스 전환:</strong> 스프레드시트 하이퍼링크 접근 → <strong>Google Drive API 직접 검색</strong> 및 <strong>날짜 필터링</strong></li>
+      <li><strong>성능/안정성:</strong> API 호출 최적화 + 배치 처리로 처리량·안정성 향상</li>
+      <li><strong>확장성:</strong> 시트 구조 변경에 <strong>독립적인</strong> 설계(robust), 모듈 간 의존성 최소화</li>
+    </ul>
     </section>
     <section>
     <h2 id="section-case-studies">Case Studies: 2~3개로 깊이 있게</h2>
@@ -454,7 +468,12 @@
       <li><strong>문제(S):</strong> QR/현장 로그 결측률 30~40%, 월간 보고서 2일 소요, 데이터 신뢰도 부족</li>
       <li><strong>과제(T):</strong> 데이터 신뢰성 확보 후 실시간화</li>
       <li><strong>행동(A):</strong> 품질 규칙(누락·형식·범위) 설계 → 정규화 스키마/CTE 적용 → 배치 파이프라인(GitHub Actions) → 시각화·슬랙 알림</li>
-      <li><strong>결과(R):</strong> 결측률 <span class="highlight">0.5% 미만</span>, 리포팅 <span class="highlight">실시간화</span>, <span class="highlight">ROI 7,048%</span></li>
+      <li><strong>결과(R):</strong> 결측률 <span class="highlight">0.5% 미만</span>, 리포팅 <span class="highlight">실시간화</span>, <span class="highlight">ROI 7,048%</span>
+        <ul>
+          <li>작업시간 <strong>누락률 감소</strong> → BE‑FE 구조(Netlify 대시보드)에서 모델/공정별 <strong>progress 실시간 노출</strong></li>
+          <li><strong>CT 확인 체계 정립</strong> → 작업시간 <strong>IQR 사분위(중앙 50%) 기반 평균 CT</strong> 산출·모니터링 가능</li>
+        </ul>
+      </li>
     </ul>
 
     <h3>Case 2 — AI 예측 &amp; FE 연동</h3>
@@ -465,12 +484,19 @@
       <li><strong>결과(R):</strong> 우선 대응 품목 선정 리드타임 단축(데모 기준), Next Steps: <span class="highlight">LightGBM</span> 재학습·AUC ≥ 0.85 목표</li>
     </ul>
 
-    <h3>Case 3 — 협력사 KPI 대시보드</h3>
+   <h3>Case 3 — 협력사 KPI 대시보드</h3>
     <ul>
-      <li><strong>문제(S):</strong> 월말 수작업 평가(약 2일), 기준 불일치</li>
-      <li><strong>과제(T):</strong> KPI 산식 표준화와 자동 계산</li>
-      <li><strong>행동(A):</strong> KPI 정의서 고도화 → 자동 집계 API → Netlify Identity 접근제어 적용</li>
-      <li><strong>결과(R):</strong> 평가 리드타임 <span class="highlight">2일 → 실시간</span>, 투명성·재현성 향상</li>
+      <li><strong>문제(S):</strong> 월말 수작업 평가(약 2일), 기준 불일치, 산출 근거 추적 어려움</li>
+      <li><strong>과제(T):</strong> 평가지수(=KPI) <strong>표준화·자동 계산</strong>과 <strong>추적성(재현성)</strong> 확보</li>
+      <li><strong>행동(A):</strong> 
+        <ul>
+          <li><strong>CI/CD:</strong> GitHub Actions로 <em>PDA‑defect</em>, <em>nan‑dashboard</em> 워크플로우 실행 → 산출물(JSON) 자동 생성·배포</li>
+          <li><strong>데이터 저장:</strong> SQL 적재 없이 <strong>JSON 아티팩트</strong>를 GitHub에 버전 관리(근거 보존)</li>
+          <li><strong>산식 적용:</strong> 하드코딩된 규칙/알고리즘으로 <strong>평가지수</strong> 계산(모델·협력사별)</li>
+          <li><strong>출력/접근제어:</strong> Netlify FE에서 지표 시각화, <strong>Netlify Identity</strong>로 접근 제한</li>
+        </ul>
+      </li>
+      <li><strong>결과(R):</strong> 평가 리드타임 <span class="highlight">2일 → 실시간</span>, 기준 단일화·버전 추적, 협력사 간 비교 재현성 강화</li>
     </ul>
     </section>
 <section>
