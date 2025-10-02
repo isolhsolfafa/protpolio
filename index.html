@@ -1,389 +1,373 @@
 <!DOCTYPE html><html lang="ko"><head>
-    <!-- Google Analytics 삽입 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F7HTZVLPLF"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-F7HTZVLPLF');
-      gtag('consent', 'default', { 'analytics_storage': 'denied' });
-    </script>
-    <meta charset="utf-8"/>
-    <meta name="robots" content="index,follow"/>
-    <meta name="author" content="김동규"/>
-    <meta name="theme-color" content="#ffffff"/>
-    <meta property="og:site_name" content="김동규 | DX 프로젝트 포트폴리오"/>
-    <meta property="og:image:width" content="1200"/>
-    <meta property="og:image:height" content="630"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta name="description" content="실시간 ETL·데이터 품질 관리로 QR/현장 데이터 결측률 30~40% → 0.5% 미만, 보고 자동화 2일 → 실시간. PostgreSQL·Flask·GitHub Actions·Netlify 기반 제조 DX 프로젝트 포트폴리오."/>
-    <meta property="og:title" content="김동규 | DX 프로젝트 포트폴리오"/>
-    <meta property="og:description" content="실시간 ETL·데이터 품질 혁신, 결측률 30~40% → 0.5% 미만, 자동화 파이프라인 구축."/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:locale" content="ko_KR"/>
-    <link rel="canonical" href="https://portpolio-twinfax2.netlify.app/"/>
-    <meta property="og:url" content="https://portpolio-twinfax2.netlify.app/"/>
-    <meta property="og:image" content="https://portpolio-twinfax2.netlify.app/og-cover.png"/>
-    <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:title" content="김동규 | DX 프로젝트 포트폴리오"/>
-    <meta name="twitter:description" content="실시간 ETL·데이터 품질 혁신, 결측률 30~40% → 0.5% 미만, 자동화 파이프라인 구축."/>
-    <meta name="twitter:image" content="https://portpolio-twinfax2.netlify.app/og-cover.png"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://www.youtube.com" crossorigin>
-    <link rel="preconnect" href="https://i.ytimg.com" crossorigin>
-    <title>김동규 | DX 프로젝트 포트폴리오</title>
-    <style>@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 24px 40px;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        }
-    .chart-container {
-        position: relative;
-        margin: 3em auto;
-        max-width: 700px;
-        min-height: 200px;
-        max-height: 400px;
-        width: 100%;
-        height: auto;
-        overflow: visible;
-        }
-    img {
-        display: block;
-        overflow: hidden;
-        max-width: 100%;
-        max-height: 280px;
-        margin: 1em auto;
-        border-radius: 8px;
-        }
-    img[loading="lazy"] {
-        content-visibility: auto;
-    }
-    h4 {
-        font-size: 18px;
-        }
-    h5 {
-        font-size: 16px;
-        }
-    body {
-        font-family: "Noto Sans KR", sans-serif;
-        line-height: 1.8;
-        color: #333;
-        background-color: #fdfdfd;
-        margin: 0 24px 0 24px;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        font-size: 16px;
-        max-width: none;
-        }
-    h1, h2, h3 {
-        font-weight: 700;
-        color: #1a1a1a;
-        letter-spacing: -0.5px;
-        font-size: 28px;
-        margin-top: 24px;
-        margin-bottom: 20px;
-        }
-    h1 {
-        font-size: 28px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #333;
-        padding-bottom: 0.3em;
-        margin-top: 24px;
-        }
-    h2 {
-        font-size: 22px;
-        margin-top: 2.5em;
-        margin-bottom: 1em;
-        border-left: 5px solid #007bff;
-        padding-left: 15px;
-        }
-    h3 {
-        font-size: 20px;
-        margin-top: 2em;
-        margin-bottom: 0.8em;
-        color: #2c2c2c;
-        }
-    p, li {
-        font-size: 1.1em;
-        font-weight: 400;
-        color: #4f4f4f;
-        }
-    /* Ensure nested list items inherit parent size/color for Case Studies details */
-    ul li ul { margin-top: 0.4em; }
-    ul li ul li { font-size: inherit; color: inherit; font-weight: 400; }
-    strong {
-        font-weight: 700;
-        color: #0056b3;
-        }
-    .highlight {
-        background-color: #e3f2fd;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 500;
-        }
-    /* Inline code-style for repo/identifier names */
-    .mono {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-        font-size: 0.95em;
-        font-weight: 600;
-        background-color: #f1f3f5;
-        padding: 0 4px;
-        border-radius: 4px;
-    }
-    #toc {
-        background-color: #f8f9fa;
-        border: 1px solid #e9ecef;
-        padding: 20px 30px;
-        margin-top: 2em;
-        margin-bottom: 3em;
-        border-radius: 8px;
-        }
-    #toc h3 {
-        margin-top: 0;
-        font-size: 1.2em;
-        color: #333;
-        }
-    #toc ul {
-        list-style-type: none;
-        padding-left: 0;
-        }
-    #toc ul li {
-        margin-bottom: 0.5em;
-        }
-    #toc ul ul {
-        padding-left: 20px;
-        margin-top: 0.5em;
-        }
-    #toc a {
-        text-decoration: none;
-        color: #0056b3;
-        font-weight: 500;
-        }
-    #toc a:hover {
-        text-decoration: underline;
-        }
-    .info-box {
-        background: #f8f9fa;
-        border-left: 4px solid #17a2b8;
-        padding: 20px;
-        margin: 2em 0;
-        border-radius: 0 8px 8px 0;
-        }
-    .info-box p {
-        margin: 0;
-        }
-    .tech-stack {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        padding-left: 0;
-        list-style-type: none;
-        }
-    .tech-stack li {
-        background-color: #e9ecef;
-        color: #495057;
-        padding: 5px 12px;
-        border-radius: 15px;
-        font-size: 0.9em;
-        font-weight: 500;
-        }
-    .source-note {
-        font-size: 0.9em;
-        color: #6c757d;
-        margin-top: 1em;
-        text-align: right;
-        }
-    /* 데모 영상 카드 호버 효과 */
-    .demo-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
-        }
-    /* README 링크 호버 효과 */
-    .readme-link:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.15) !important;
-        }
-    @media only screen and (max-device-width: 768px) {
-        body {
-            padding: 0;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, Arial, sans-serif;
-            font-size: 15px;
-            line-height: 1.5;
-        }
-
-        .container {
-            padding: 0;
-            margin: 16px 20px 30px;
-            box-shadow: none;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, Arial, sans-serif;
-        }
-
-        h1 {
-            font-size: 1.87em;
-            line-height: 1.6;
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.6em;
-            font-weight: 600;
-            margin-top: 1.3em;
-            margin-bottom: 0.8em;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5em;
-        }
-
-        h3 {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-top: 1em;
-            margin-bottom: 0.6em;
-        }
-
-        h4 {
-            font-size: 1.1em;
-            font-weight: 500;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-            font-style: normal;
-        }
-
-        h5 {
-            font-size: 1em;
-            font-weight: 500;
-            margin-bottom: 1.2em;
-        }
-
-        ul,
-        ol {
-            font-size: 1em; /* Equivalent to 17.6px if base is 16px */
-            font-weight: 400;
-            margin-bottom: 1.2em;
-            line-height: 1.8;
-        }
-
-        p {
-            font-size: 1em;
-            line-height: 1.8; /* Equivalent to 17.6px if base is 16px */
-            font-weight: 400;
-            margin-top: 0.8em;
-            margin-bottom: 0.8em;
-        }
-
-        blockquote {
-            padding: 1em 1.2em;
-
-            p {
-                margin: 0;
-            }
-        }
-
-        figcaption {
-            margin-top: 0.5em;
-            font-size: 0.8em; /* Equivalent to 17.6px if base is 16px */
-            font-weight: 400;
-            text-align: center;
-            font-style: normal;
-            color: #7F8896;
-        }
-
-        img {
-            display: block;
-            overflow: hidden;
-            max-width: 100%;
-            max-height: 335px;
-            margin: 1em auto;
-            border-radius: 8px;
-        }
-        img[loading="lazy"] {
-            content-visibility: auto;
-        }
-    }
-    </style>
-    </head>
-    <body>
-    <main>
-    <div class="container">
-    <header>
-    <h1 id="section-main-title">기획부터 운영까지, 한 사람이 만든 실운영 데이터 플랫폼</h1>
+  <!-- Google Analytics 삽입 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-F7HTZVLPLF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-F7HTZVLPLF');
+  </script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="description" content="실시간 ETL·데이터 품질 관리로 QR/현장 데이터 결측률 30~40% → 0.5% 미만, 보고 자동화 2일 → 실시간. PostgreSQL·Flask·GitHub Actions·Netlify 기반 제조 DX 프로젝트 포트폴리오."/>
+  <meta property="og:title" content="김동규 | DX 프로젝트 포트폴리오"/>
+  <meta property="og:description" content="실시간 ETL·데이터 품질 혁신, 결측률 30~40% → 0.5% 미만, 자동화 파이프라인 구축."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:locale" content="ko_KR"/>
+  <link rel="canonical" href="https://portpolio-twinfax2.netlify.app/"/>
+  <meta property="og:url" content="https://portpolio-twinfax2.netlify.app/"/>
+  <meta property="og:image" content="https://portpolio-twinfax2.netlify.app/og-cover.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="김동규 | DX 프로젝트 포트폴리오"/>
+  <meta name="twitter:description" content="실시간 ETL·데이터 품질 혁신, 결측률 30~40% → 0.5% 미만, 자동화 파이프라인 구축."/>
+  <meta name="twitter:image" content="https://portpolio-twinfax2.netlify.app/og-cover.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>김동규 | DX 프로젝트 포트폴리오</title>
+  <style>@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
+  .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 24px 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      }
+  .chart-container {
+      position: relative;
+      margin: 3em auto;
+      max-width: 700px;
+      min-height: 200px;
+      max-height: 400px;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      }
+  img {
+      display: block;
+      overflow: hidden;
+      max-width: 100%;
+      max-height: 280px;
+      margin: 1em auto;
+      border-radius: 8px;
+      }
+  h4 {
+      font-size: 18px;
+      }
+  h5 {
+      font-size: 16px;
+      }
+  body {
+      font-family: "Noto Sans KR", sans-serif;
+      line-height: 1.8;
+      color: #333;
+      background-color: #fdfdfd;
+      margin: 0 24px 0 24px;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      font-size: 16px;
+      max-width: none;
+      }
+  h1, h2, h3 {
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.5px;
+      font-size: 28px;
+      margin-top: 24px;
+      margin-bottom: 20px;
+      }
+  h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #333;
+      padding-bottom: 0.3em;
+      margin-top: 24px;
+      }
+  h2 {
+      font-size: 22px;
+      margin-top: 2.5em;
+      margin-bottom: 1em;
+      border-left: 5px solid #007bff;
+      padding-left: 15px;
+      }
+  h3 {
+      font-size: 20px;
+      margin-top: 2em;
+      margin-bottom: 0.8em;
+      color: #2c2c2c;
+      }
+  p, li {
+      font-size: 1.1em;
+      font-weight: 400;
+      color: #4f4f4f;
+      }
+  /* Ensure nested list items inherit parent size/color for Case Studies details */
+  ul li ul { margin-top: 0.4em; }
+  ul li ul li { font-size: inherit; color: inherit; font-weight: 400; }
+  strong {
+      font-weight: 700;
+      color: #0056b3;
+      }
+  .highlight {
+      background-color: #e3f2fd;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 500;
+      }
+  /* Inline code-style for repo/identifier names */
+  .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+      font-weight: 600;
+      background-color: #f1f3f5;
+      padding: 0 4px;
+      border-radius: 4px;
+  }
+  #toc {
+      background-color: #f8f9fa;
+      border: 1px solid #e9ecef;
+      padding: 20px 30px;
+      margin-top: 2em;
+      margin-bottom: 3em;
+      border-radius: 8px;
+      }
+  #toc h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #333;
+      }
+  #toc ul {
+      list-style-type: none;
+      padding-left: 0;
+      }
+  #toc ul li {
+      margin-bottom: 0.5em;
+      }
+  #toc ul ul {
+      padding-left: 20px;
+      margin-top: 0.5em;
+      }
+  #toc a {
+      text-decoration: none;
+      color: #0056b3;
+      font-weight: 500;
+      }
+  #toc a:hover {
+      text-decoration: underline;
+      }
+  .info-box {
+      background: #f8f9fa;
+      border-left: 4px solid #17a2b8;
+      padding: 20px;
+      margin: 2em 0;
+      border-radius: 0 8px 8px 0;
+      }
+  .info-box p {
+      margin: 0;
+      }
+  .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-left: 0;
+      list-style-type: none;
+      }
+  .tech-stack li {
+      background-color: #e9ecef;
+      color: #495057;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 0.9em;
+      font-weight: 500;
+      }
+  .source-note {
+      font-size: 0.9em;
+      color: #6c757d;
+      margin-top: 1em;
+      text-align: right;
+      }
+  /* 데모 영상 카드 호버 효과 */
+  .demo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+      }
+  /* README 링크 호버 효과 */
+  .readme-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15) !important;
+      }
+  @media only screen and (max-device-width: 768px) {
+              body {
+                  padding: 0;
+                  margin: 0;
+                  font-family: PingFang SC;
+                  font-size: 15px;
+                  line-height: 1.5;
+              }
+  
+              .container {
+                  padding: 0;
+                  margin: 16px 20px 30px;
+                  box-shadow: none;
+              }
+  
+              h1,
+              h2,
+              h3,
+              h4 {
+                  font-family: PingFang SC;
+              }
+  
+              h1 {
+                  font-size: 1.87em;
+                  line-height: 1.6;
+                  margin-bottom: 0.5em;
+                  text-align: center;
+              }
+  
+              h2 {
+                  font-size: 1.6em;
+                  font-weight: 600;
+                  margin-top: 1.3em;
+                  margin-bottom: 0.8em;
+                  border-bottom: 1px solid #eee;
+                  padding-bottom: 0.5em;
+              }
+  
+              h3 {
+                  font-size: 1.2em;
+                  font-weight: 600;
+                  margin-top: 1em;
+                  margin-bottom: 0.6em;
+              }
+  
+              h4 {
+                  font-size: 1.1em;
+                  font-weight: 500;
+                  margin-top: 1em;
+                  margin-bottom: 0.5em;
+                  font-style: normal;
+              }
+  
+              h5 {
+                  font-size: 1em;
+                  font-weight: 500;
+                  margin-bottom: 1.2em;
+              }
+  
+              ul,
+              ol {
+                  font-size: 1em; /* Equivalent to 17.6px if base is 16px */
+                  font-weight: 400;
+                  margin-bottom: 1.2em;
+                  line-height: 1.8;
+              }
+  
+              p {
+                  font-size: 1em;
+                  line-height: 1.8; /* Equivalent to 17.6px if base is 16px */
+                  font-weight: 400;
+                  margin-top: 0.8em;
+                  margin-bottom: 0.8em;
+              }
+  
+              blockquote {
+                  padding: 1em 1.2em;
+  
+              p {
+                  margin: 0;
+              }
+          }
+  
+          figcaption {
+              margin-top: 0.5em;
+              font-size: 0.8em; /* Equivalent to 17.6px if base is 16px */
+              font-weight: 400;
+              text-align: center;
+              font-style: normal;
+              color: #7F8896;
+          }
+  
+          img {
+              display: block;
+              overflow: hidden;
+              max-width: 100%;
+              max-height: 335px;
+              margin: 1em auto;
+              border-radius: 8px;
+          }
+          }</style>
+  </head>
+  <body>
+  <main>
+  <div class="container">
+  <header>
+  <h1 id="section-main-title">기획부터 운영까지, 한 사람이 만든 실운영 데이터 플랫폼</h1>
+  
+  <!-- 데모 영상 섹션 -->
+  <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px;">
+    <h3 style="color: white; margin-bottom: 20px; font-size: 1.3em;">🎬 프로젝트 데모 영상</h3>
     
-    <!-- 데모 영상 섹션 -->
-    <div style="text-align: center; margin: 30px 0; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px;">
-      <h3 style="color: white; margin-bottom: 20px; font-size: 1.3em;">🎬 프로젝트 데모 영상</h3>
-      
-      <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-        <!-- Dashboard Demo -->
-        <div style="flex: 1; min-width: 280px; max-width: 350px;">
-          <a href="https://youtu.be/Jrclx61FrDg" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-            <div class="demo-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
-              <div style="color: #FF0000; font-size: 2em; margin-bottom: 10px;">▶️</div>
-              <h4 style="color: #333; margin: 10px 0; font-size: 1.1em;">Dashboard Demo</h4>
-              <p style="color: #666; font-size: 0.9em; line-height: 1.4;">실시간 대시보드 시연<br/>데이터 시각화 & 모니터링</p>
-              <div style="background: #FF0000; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">YouTube 보기</div>
-            </div>
-          </a>
-        </div>
-        
-        <!-- Slack Bot Demo -->
-        <div style="flex: 1; min-width: 280px; max-width: 350px;">
-          <a href="https://youtube.com/shorts/sjsWLC4aH50?feature=share" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-            <div class="demo-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
-              <div style="color: #FF0000; font-size: 2em; margin-bottom: 10px;">🤖</div>
-              <h4 style="color: #333; margin: 10px 0; font-size: 1.1em;">Slack Bot Demo</h4>
-              <p style="color: #666; font-size: 0.9em; line-height: 1.4;">AI 챗봇 시연<br/>자연어 KPI 질의응답</p>
-              <div style="background: #FF0000; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">YouTube Shorts</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      
-      <p style="color: rgba(255,255,255,0.9); margin-top: 15px; font-size: 0.9em;">
-        💡 <strong>실제 운영 중인 시스템</strong>의 라이브 데모를 확인하세요
-      </p>
-    </div>
-    
-    <!-- 프로젝트 자료 링크 섹션 -->
-    <div style="text-align: center; margin: 25px 0; padding: 20px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border-radius: 10px;">
-      <h3 style="color: white; margin-bottom: 20px; font-size: 1.2em;">📊 상세 프로젝트 자료</h3>
-      
-      <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-        <!-- README 링크 -->
-        <a href="https://github-twinfax2.netlify.app" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <div class="readme-link" style="background: white; padding: 12px 20px; border-radius: 25px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; min-width: 200px;">
-            <span style="color: #28a745; font-weight: bold; font-size: 0.95em;">📋 README.md</span>
-            <div style="color: #666; font-size: 0.8em; margin-top: 2px;">기술 문서 & 아키텍처</div>
-          </div>
-        </a>
-        
-        <!-- PPT 자료 링크 -->
-        <a href="https://drive.google.com/file/d/1To8BQpXFCV354O---krrNV9UqyUZuPD5/view?usp=share_link" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
-          <div class="readme-link" style="background: white; padding: 12px 20px; border-radius: 25px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; min-width: 200px;">
-            <span style="color: #dc3545; font-weight: bold; font-size: 0.95em;">📑 PPT 자료</span>
-            <div style="color: #666; font-size: 0.8em; margin-top: 2px;">성과 분석 & 근거 자료</div>
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+      <!-- Dashboard Demo -->
+      <div style="flex: 1; min-width: 280px; max-width: 350px;">
+        <a href="https://youtu.be/Jrclx61FrDg" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <div class="demo-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+            <div style="color: #FF0000; font-size: 2em; margin-bottom: 10px;">▶️</div>
+            <h4 style="color: #333; margin: 10px 0; font-size: 1.1em;">Dashboard Demo</h4>
+            <p style="color: #666; font-size: 0.9em; line-height: 1.4;">실시간 대시보드 시연<br/>데이터 시각화 & 모니터링</p>
+            <div style="background: #FF0000; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">YouTube 보기</div>
           </div>
         </a>
       </div>
       
-      <p style="color: rgba(255,255,255,0.9); margin-top: 15px; font-size: 0.85em;">
-        <strong>3단계 자료</strong> - 데모(현재 운영) → 기술 문서 → 근거 자료 | <strong>APP 통합 진행 중</strong>
-      </p>
+      <!-- Slack Bot Demo -->
+      <div style="flex: 1; min-width: 280px; max-width: 350px;">
+        <a href="https://youtube.com/shorts/sjsWLC4aH50?feature=share" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+          <div class="demo-card" style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s ease;">
+            <div style="color: #FF0000; font-size: 2em; margin-bottom: 10px;">🤖</div>
+            <h4 style="color: #333; margin: 10px 0; font-size: 1.1em;">Slack Bot Demo</h4>
+            <p style="color: #666; font-size: 0.9em; line-height: 1.4;">AI 챗봇 시연<br/>자연어 KPI 질의응답</p>
+            <div style="background: #FF0000; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.8em; font-weight: bold;">YouTube Shorts</div>
+          </div>
+        </a>
+      </div>
     </div>
-    </header>
-<nav id="toc" aria-label="페이지 목차">
+    
+    <p style="color: rgba(255,255,255,0.9); margin-top: 15px; font-size: 0.9em;">
+      💡 <strong>실제 운영 중인 시스템</strong>의 라이브 데모를 확인하세요
+    </p>
+  </div>
+  
+  <!-- 프로젝트 자료 링크 섹션 -->
+  <div style="text-align: center; margin: 25px 0; padding: 20px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%); border-radius: 10px;">
+    <h3 style="color: white; margin-bottom: 20px; font-size: 1.2em;">📊 상세 프로젝트 자료</h3>
+    
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+      <!-- README 링크 -->
+      <a href="https://github-twinfax2.netlify.app" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+        <div class="readme-link" style="background: white; padding: 12px 20px; border-radius: 25px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; min-width: 200px;">
+          <span style="color: #28a745; font-weight: bold; font-size: 0.95em;">📋 README.md</span>
+          <div style="color: #666; font-size: 0.8em; margin-top: 2px;">기술 문서 & 아키텍처</div>
+        </div>
+      </a>
+      
+      <!-- PPT 자료 링크 -->
+      <a href="https://drive.google.com/file/d/1To8BQpXFCV354O---krrNV9UqyUZuPD5/view?usp=share_link" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+        <div class="readme-link" style="background: white; padding: 12px 20px; border-radius: 25px; display: inline-block; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; min-width: 200px;">
+          <span style="color: #dc3545; font-weight: bold; font-size: 0.95em;">📑 PPT 자료</span>
+          <div style="color: #666; font-size: 0.8em; margin-top: 2px;">성과 분석 & 근거 자료</div>
+        </div>
+      </a>
+    </div>
+    
+    <p style="color: rgba(255,255,255,0.9); margin-top: 15px; font-size: 0.85em;">
+      <strong>3단계 자료</strong> - 데모 → 기술 문서 → 근거 자료
+    </p>
+  </div>
+  </header>
+<nav id="toc">
 <h3 id="section-0-1">목차</h3>
 <ul>
 <li><a href="#section-summary"><strong>Summary:</strong> 실시간 ETL·품질관리로 결측률 30~40% → 0.5% 미만</a></li>
@@ -393,12 +377,11 @@
 <li><a href="#section-role-contribution">나의 역할: End-to-End 프로젝트 100% 주도</a></li>
 <li><a href="#section-key-features">주요 기능 및 아키텍처</a></li>
 <li><a href="#section-business-impact">핵심 성과: 데이터 품질 혁신을 통한 현장 의사결정 신뢰성 확보</a></li>
-    <li><a href="#section-case-studies">Case Studies</a></li>
-    <li><a href="#section-staging-v340">Staging & 3‑Tier (v3.4.0)</a></li>
-    <li><a href="#section-app-integration">APP Integration (진행 중)</a></li>
-    <li><a href="#section-milestones">Milestones</a></li>
+  <li><a href="#section-case-studies">Case Studies</a></li>
+  <li><a href="#section-staging-v340">Staging & 3‑Tier (v3.4.0)</a></li>
 </ul>
 </li>
+<li><a href="#section-ongoing-projects"><strong>진행 중인 프로젝트:</strong> Mobile App Integration</a></li>
 <li><a href="#section-future-vision"><strong>Next Steps:</strong> 예측·이벤트 기반으로 확장</a></li>
 <li><a href="#section-skills"><strong>보유 기술 스택</strong></a></li>
 </ul>
@@ -406,293 +389,307 @@
 <section>
 <h2 id="section-summary">Summary: 실시간 ETL·품질관리로 결측률 30~40% → 0.5% 미만</h2>
 <p>
-    제조 현장의 QR·작업 로그를 대상으로 <strong>실시간 ETL 파이프라인</strong>과 <strong>데이터 품질 관리 체계</strong>를 설계·구현·운영했습니다. 핵심 지표는 아래와 같습니다.
+  제조 현장의 QR·작업 로그를 대상으로 <strong>실시간 ETL 파이프라인</strong>과 <strong>데이터 품질 관리 체계</strong>를 설계·구현·운영했습니다. 핵심 지표는 아래와 같습니다.
 </p>
 <ul>
-  <li><strong>결측률 개선:</strong> 30~40% → <span class="highlight">0.5% 미만</span> (60~80배 개선)</li>
-  <li><strong>리포팅 자동화:</strong> 월간 집계 2일 → <span class="highlight">실시간 대시보드/슬랙 알림</span></li>
-  <li><strong>비용 절감:</strong> 유사 외주 대비 <span class="highlight">99% 이상 절감</span> (ROI 7,048%)</li>
-  <li><strong>APP 실시간 통합(진행 중):</strong> QR 메타 <span class="highlight">0.1ms</span>, 타임스탬프 <span class="highlight">< 500ms</span> push, Sheets·App <span class="highlight">통합 뷰</span> 운영</li>
+<li><strong>결측률 개선:</strong> 30~40% → <span class="highlight">0.5% 미만</span> (60~80배 개선)</li>
+<li><strong>리포팅 자동화:</strong> 월간 집계 2일 → <span class="highlight">실시간 대시보드/슬랙 알림</span></li>
+<li><strong>비용 절감:</strong> 유사 외주 대비 <span class="highlight">99% 이상 절감</span> (ROI 7,048%)</li>
 </ul>
 <p>
-    Python·PostgreSQL·Flask·GitHub Actions·Netlify·Slack API를 결합해 <strong>설계→개발→배포→운영까지 End-to-End 단독 수행</strong>했으며, 데이터를 신뢰 가능한 상태로 끌어올린 뒤 시각화·알림·AI 예측으로 확장했습니다.
+  Python·PostgreSQL·Flask·GitHub Actions·Netlify·Slack API를 결합해 <strong>설계→개발→배포→운영까지 End-to-End 단독 수행</strong>했으며, 데이터를 신뢰 가능한 상태로 끌어올린 뒤 시각화·알림·AI 예측으로 확장했습니다.
 </p>
 </section>
-    <section>
-    <h2 id="section-project-twinfax2">Project: 실시간 ETL 파이프라인 기반 제조 데이터 처리 시스템</h2>
-    <p>
-        산재된 제조 데이터와 높은 결측률(30~40%), 수작업 리포팅 병목을 해결하기 위해, <strong>데이터 품질 관리 선행 → ETL 정규화 → 시각화/알림 자동화</strong> 순서로 구축했습니다. 그 결과 결측률을 <span class="highlight">0.5% 미만</span>으로 낮추고, 리포팅을 실시간화했습니다.
-    </p>
-    <h3 id="section-role-contribution">나의 역할: End-to-End 프로젝트 100% 주도</h3>
-    <div class="info-box">
-    <p>
-                            기획, 아키텍처 설계, 백엔드/프론트엔드 개발, 인프라 구축, 배포, 운영 및 고도화까지 <strong>프로젝트의 모든 단계를 100% 단독으로 수행</strong>하며 아이디어를 완성된 시스템으로 구현했습니다.
-                        </p>
-    </div>
-    <ul>
-    <li><strong>기획 및 설계:</strong> 현업 요구사항 분석 및 문제 정의, 해결을 위한 시스템 아키텍처 및 데이터 파이프라인 설계</li>
-    <li><strong>개발:</strong> Flask 기반 REST API 서버, PostgreSQL 데이터베이스 모델링, Netlify를 활용한 반응형 웹 대시보드 개발</li>
-    <li><strong>자동화:</strong> Google Sheets/Drive 연동을 통한 수작업 자동화, Slack/카카오톡 기반의 알림 및 챗봇 기능 구현</li>
-    <li><strong>운영 및 배포:</strong> 사내 VM 환경 구성 및 시스템 배포, JWT 기반 보안 적용, 지속적인 사용자 피드백 기반 기능 개선</li>
-    </ul>
-    <h3 id="section-key-features">주요 기능 및 아키텍처</h3>
-    <p>
-                        최소한의 비용으로 최대의 효율을 내기 위해 경량의 최신 기술 스택을 조합하여 유연하고 확장 가능한 구조로 설계되었습니다.
-                    </p>
-    <ul>
-    <li><strong>실시간 대시보드:</strong> 공정 진행률, 불량률, CT(Cycle Time), 히트맵 등 핵심 KPI를 실시간으로 시각화하여 빠른 의사결정 지원</li>
-    <li><strong>업무 자동화:</strong> Google Drive 내 파일 검색 및 하이퍼링크 자동 생성, 메타 데이터 자동 적재를 통해 100% 수작업 제거</li>
-    <li><strong>안정적인 데이터 파이프라인:</strong> JSON 데이터를 정규화하여 PostgreSQL에 자동 적재, 데이터 신뢰성 확보 및 분석 기반 마련</li>
-    <li><strong>지능형 알림 시스템:</strong> 이상 상황 발생 시 Slack, 카카오톡으로 즉시 알림을 전송하여 대응 시간 최소화</li>
-    </ul>
-    <h3 id="section-business-impact">핵심 성과: 데이터 품질 혁신을 통한 현장 의사결정 신뢰성 확보</h3>
-    
-    <h4 style="color: #0056b3; margin-top: 1.5em;">🎯 데이터 위생(Data Hygiene) 체계 구축</h4>
-    <div class="info-box" style="background: #e8f5e8; border-left: 4px solid #28a745;">
-    <p>
-        <strong>QR·현장 데이터 결측률을 30~40% → 0.5% 미만으로 낮추는 데이터 품질 관리 체계를 구축.</strong> 이를 기반으로 CT IQR(중앙 50%) 분석을 표준화하고 차이율·신뢰도 등급·샘플 커버리지를 FE/슬랙봇에 일관 제공하여 현장 의사결정 신뢰성과 속도를 혁신적으로 향상시켰습니다.
-    </p>
-    </div>
-    
-    <ul>
-    <li><strong>데이터 결측률 개선:</strong> <span class="highlight">30~40% → 0.5% 미만</span> (60~80배 개선)</li>
-    <li><strong>CT IQR 분석 신뢰화:</strong> 중앙 50% 분석이 '신뢰 가능한 지표'로 정착</li>
-    <li><strong>현장 의사결정 체계:</strong> 차이율·신뢰도 등급·샘플 커버리지 기반의 표준화된 분석 제공</li>
-    <li><strong>데이터 선순환 구조:</strong> 데이터 위생 → 신뢰도 확보 → IQR 분석 가능화 → 현장 의사결정</li>
-    </ul>
-    
-    <h4 style="color: #0056b3; margin-top: 2em;">💰 재무적 성과: ROI 7,048% 달성</h4>
-    <p>
-        데이터 품질 혁신과 더불어 명확한 재무적 임팩트도 창출했습니다.
-    </p>
-    <ul>
-    <li><strong>총 투자비:</strong> ₩2,000,000 (사내 인프라 구성 비용)</li>
-    <li><strong>총 순이익:</strong> <strong>₩140,960,000</strong> (외주 개발비 절감 + 운영 효율화)</li>
-    <li><strong>ROI (투자수익률):</strong> <strong>7,048%</strong></li>
-    <li><strong>Pay-back (투자 회수 기간):</strong> <strong>약 5일</strong></li>
-    </ul>
-    <p>
-        약 3.5억 원이 소요되는 유사 외주 시스템과 비교했을 때, <span class="highlight">99% 이상의 비용을 절감</span>하면서도 데이터 품질 관리, Slack 챗봇, ML 예측 연계 등 더 유연하고 확장성 높은 기능을 확보한 결과입니다.
-    </p>
-    <p class="source-note">
-                        *모든 성과 수치는 &#39;TwinfaX2 포트폴리오&#39; 문서에 근거합니다. (2025-07-25 기준)
-                    </p>
-    <h3 id="section-staging-v340">Staging & 3‑Tier 업그레이드 (v3.4.0)</h3>
-    <div class="info-box">
-      <p>모듈 의존성 정리 및 신규 <strong>utils</strong> 모듈 반영, <strong>3‑Tier</strong> 환경 도입으로 안정성·확장성을 크게 개선했습니다.</p>
-    </div>
-    <ul>
-      <li><strong>BE‑staging 환경 구축:</strong> GitHub Actions 기반 완전한 테스트 환경, <span class="mono">TwinfaX2/BE-staging</span> 저장소로 독립 운영</li>
-      <li><strong>1‑cycle 테스트:</strong> 로컬과 동일하게 <em>추출 → DB 적재</em> 전체 사이클을 CI 상에서 검증</li>
-      <li><strong>보안/설정:</strong> GitHub Secrets로 환경변수 안전 관리</li>
-      <li><strong>Zero‑risk 배포:</strong> Railway 배포 전 <strong>사전 검증</strong>으로 운영 리스크 제거</li>
-      <li><strong>데이터 소스 전환:</strong> 스프레드시트 하이퍼링크 접근 → <strong>Google Drive API 직접 검색</strong> 및 <strong>날짜 필터링</strong></li>
-      <li><strong>성능/안정성:</strong> API 호출 최적화 + 배치 처리로 처리량·안정성 향상</li>
-      <li><strong>확장성:</strong> 시트 구조 변경에 <strong>독립적인</strong> 설계(robust), 모듈 간 의존성 최소화</li>
-    </ul>
-
-<h3 id="section-app-integration">APP Integration (진행 중)</h3>
-<ul>
-  <li><strong>하이브리드 운영:</strong> 기존 Google Sheets 유지 + APP 실시간 병행, <span class="mono">unified_worksheet</span>로 단일 조회</li>
-  <li><strong>저지연 성능:</strong> <span class="mono">qr_metadata_cache</span>로 QR 메타 <span class="highlight">0.1ms</span> 조회, API p95 <span class="highlight">< 500ms</span></li>
-  <li><strong>안정적 쓰기 경로:</strong> Write=REST(멱등키 <span class="mono">event_uuid</span>), Offline 큐 → 자동 동기화</li>
-  <li><strong>실시간 보기 경로(예정):</strong> 초기 GET 이후 <span class="highlight">SSE/WS</span>로 증분 반영(조건부)</li>
-  <li><strong>데이터 일관성:</strong> <span class="mono">qr_source('sheets'|'app')</span> 플래그로 출처 구분, 최신 타임스탬프 우선 규칙</li>
-</ul>
-    </section>
-    <section>
+  <section>
+  <h2 id="section-project-twinfax2">Project: 실시간 ETL 파이프라인 기반 제조 데이터 처리 시스템</h2>
+  <p>
+      산재된 제조 데이터와 높은 결측률(30~40%), 수작업 리포팅 병목을 해결하기 위해, <strong>데이터 품질 관리 선행 → ETL 정규화 → 시각화/알림 자동화</strong> 순서로 구축했습니다. 그 결과 결측률을 <span class="highlight">0.5% 미만</span>으로 낮추고, 리포팅을 실시간화했습니다.
+  </p>
+  <h3 id="section-role-contribution">나의 역할: End-to-End 프로젝트 100% 주도</h3>
+  <div class="info-box">
+  <p>
+                          기획, 아키텍처 설계, 백엔드/프론트엔드 개발, 인프라 구축, 배포, 운영 및 고도화까지 <strong>프로젝트의 모든 단계를 100% 단독으로 수행</strong>하며 아이디어를 완성된 시스템으로 구현했습니다.
+                      </p>
+  </div>
+  <ul>
+  <li><strong>기획 및 설계:</strong> 현업 요구사항 분석 및 문제 정의, 해결을 위한 시스템 아키텍처 및 데이터 파이프라인 설계</li>
+  <li><strong>개발:</strong> Flask 기반 REST API 서버, PostgreSQL 데이터베이스 모델링, Netlify를 활용한 반응형 웹 대시보드 개발</li>
+  <li><strong>자동화:</strong> Google Sheets/Drive 연동을 통한 수작업 자동화, Slack/카카오톡 기반의 알림 및 챗봇 기능 구현</li>
+  <li><strong>운영 및 배포:</strong> 사내 VM 환경 구성 및 시스템 배포, JWT 기반 보안 적용, 지속적인 사용자 피드백 기반 기능 개선</li>
+  </ul>
+  <h3 id="section-key-features">주요 기능 및 아키텍처</h3>
+  <p>
+                      최소한의 비용으로 최대의 효율을 내기 위해 경량의 최신 기술 스택을 조합하여 유연하고 확장 가능한 구조로 설계되었습니다.
+                  </p>
+  <ul>
+  <li><strong>실시간 대시보드:</strong> 공정 진행률, 불량률, CT(Cycle Time), 히트맵 등 핵심 KPI를 실시간으로 시각화하여 빠른 의사결정 지원</li>
+  <li><strong>업무 자동화:</strong> Google Drive 내 파일 검색 및 하이퍼링크 자동 생성, 메타 데이터 자동 적재를 통해 100% 수작업 제거</li>
+  <li><strong>안정적인 데이터 파이프라인:</strong> JSON 데이터를 정규화하여 PostgreSQL에 자동 적재, 데이터 신뢰성 확보 및 분석 기반 마련</li>
+  <li><strong>지능형 알림 시스템:</strong> 이상 상황 발생 시 Slack, 카카오톡으로 즉시 알림을 전송하여 대응 시간 최소화</li>
+  </ul>
+  <h3 id="section-business-impact">핵심 성과: 데이터 품질 혁신을 통한 현장 의사결정 신뢰성 확보</h3>
+  
+  <h4 style="color: #0056b3; margin-top: 1.5em;">🎯 데이터 위생(Data Hygiene) 체계 구축</h4>
+  <div class="info-box" style="background: #e8f5e8; border-left: 4px solid #28a745;">
+  <p>
+      <strong>QR·현장 데이터 결측률을 30~40% → 0.5% 미만으로 낮추는 데이터 품질 관리 체계를 구축.</strong> 이를 기반으로 CT IQR(중앙 50%) 분석을 표준화하고 차이율·신뢰도 등급·샘플 커버리지를 FE/슬랙봇에 일관 제공하여 현장 의사결정 신뢰성과 속도를 혁신적으로 향상시켰습니다.
+  </p>
+  </div>
+  
+  <ul>
+  <li><strong>데이터 결측률 개선:</strong> <span class="highlight">30~40% → 0.5% 미만</span> (60~80배 개선)</li>
+  <li><strong>CT IQR 분석 신뢰화:</strong> 중앙 50% 분석이 '신뢰 가능한 지표'로 정착</li>
+  <li><strong>현장 의사결정 체계:</strong> 차이율·신뢰도 등급·샘플 커버리지 기반의 표준화된 분석 제공</li>
+  <li><strong>데이터 선순환 구조:</strong> 데이터 위생 → 신뢰도 확보 → IQR 분석 가능화 → 현장 의사결정</li>
+  </ul>
+  
+  <h4 style="color: #0056b3; margin-top: 2em;">💰 재무적 성과: ROI 7,048% 달성</h4>
+  <p>
+      데이터 품질 혁신과 더불어 명확한 재무적 임팩트도 창출했습니다.
+  </p>
+  <ul>
+  <li><strong>총 투자비:</strong> ₩2,000,000 (사내 인프라 구성 비용)</li>
+  <li><strong>총 순이익:</strong> <strong>₩140,960,000</strong> (외주 개발비 절감 + 운영 효율화)</li>
+  <li><strong>ROI (투자수익률):</strong> <strong>7,048%</strong></li>
+  <li><strong>Pay-back (투자 회수 기간):</strong> <strong>약 5일</strong></li>
+  </ul>
+  <p>
+      약 3.5억 원이 소요되는 유사 외주 시스템과 비교했을 때, <span class="highlight">99% 이상의 비용을 절감</span>하면서도 데이터 품질 관리, Slack 챗봇, ML 예측 연계 등 더 유연하고 확장성 높은 기능을 확보한 결과입니다.
+  </p>
+  <p class="source-note">
+                      *모든 성과 수치는 &#39;TwinfaX2 포트폴리오&#39; 문서에 근거합니다. (2025-07-25 기준)
+                  </p>
+  <h3 id="section-staging-v340">Staging & 3‑Tier 업그레이드 (v3.4.0)</h3>
+  <div class="info-box">
+    <p>모듈 의존성 정리 및 신규 <strong>utils</strong> 모듈 반영, <strong>3‑Tier</strong> 환경 도입으로 안정성·확장성을 크게 개선했습니다.</p>
+  </div>
+  <ul>
+    <li><strong>BE‑staging 환경 구축:</strong> GitHub Actions 기반 완전한 테스트 환경, <span class="mono">TwinfaX2/BE-staging</span> 저장소로 독립 운영</li>
+    <li><strong>1‑cycle 테스트:</strong> 로컬과 동일하게 <em>추출 → DB 적재</em> 전체 사이클을 CI 상에서 검증</li>
+    <li><strong>보안/설정:</strong> GitHub Secrets로 환경변수 안전 관리</li>
+    <li><strong>Zero‑risk 배포:</strong> Railway 배포 전 <strong>사전 검증</strong>으로 운영 리스크 제거</li>
+    <li><strong>데이터 소스 전환:</strong> 스프레드시트 하이퍼링크 접근 → <strong>Google Drive API 직접 검색</strong> 및 <strong>날짜 필터링</strong></li>
+    <li><strong>성능/안정성:</strong> API 호출 최적화 + 배치 처리로 처리량·안정성 향상</li>
+    <li><strong>확장성:</strong> 시트 구조 변경에 <strong>독립적인</strong> 설계(robust), 모듈 간 의존성 최소화</li>
+  </ul>
+  </section>
+  <section>
 <h2 id="section-case-studies">Case Studies </h2>
 
-    <h3>Case 1 — 실시간 ETL/품질관리</h3>
-    <ul>
-      <li><strong>문제(S):</strong> QR/현장 로그 결측률 30~40%, 월간 보고서 2일 소요, 데이터 신뢰도 부족</li>
-      <li><strong>과제(T):</strong> 데이터 신뢰성 확보 후 실시간화</li>
-      <li><strong>행동(A):</strong> 품질 규칙(누락·형식·범위) 설계 → 정규화 스키마/CTE 적용 → 배치 파이프라인(GitHub Actions) → 시각화·슬랙 알림</li>
-      <li><strong>결과(R):</strong> 결측률 <span class="highlight">0.5% 미만</span>, 리포팅 <span class="highlight">실시간화</span>, <span class="highlight">ROI 7,048%</span>
-        <ul>
-          <li>작업시간 <strong>누락률 감소</strong> → BE‑FE 구조(Netlify 대시보드)에서 모델/공정별 <strong>progress 실시간 노출</strong></li>
-          <li><strong>CT 확인 체계 정립</strong> → 작업시간 <strong>IQR 사분위(중앙 50%) 기반 평균 CT</strong> 산출·모니터링 가능</li>
-        </ul>
-      </li>
-    </ul>
+  <h3>Case 1 — 실시간 ETL/품질관리</h3>
+  <ul>
+    <li><strong>문제(S):</strong> QR/현장 로그 결측률 30~40%, 월간 보고서 2일 소요, 데이터 신뢰도 부족</li>
+    <li><strong>과제(T):</strong> 데이터 신뢰성 확보 후 실시간화</li>
+    <li><strong>행동(A):</strong> 품질 규칙(누락·형식·범위) 설계 → 정규화 스키마/CTE 적용 → 배치 파이프라인(GitHub Actions) → 시각화·슬랙 알림</li>
+    <li><strong>결과(R):</strong> 결측률 <span class="highlight">0.5% 미만</span>, 리포팅 <span class="highlight">실시간화</span>, <span class="highlight">ROI 7,048%</span>
+      <ul>
+        <li>작업시간 <strong>누락률 감소</strong> → BE‑FE 구조(Netlify 대시보드)에서 모델/공정별 <strong>progress 실시간 노출</strong></li>
+        <li><strong>CT 확인 체계 정립</strong> → 작업시간 <strong>IQR 사분위(중앙 50%) 기반 평균 CT</strong> 산출·모니터링 가능</li>
+      </ul>
+    </li>
+  </ul>
 
-    <h3>Case 2 — AI 예측 &amp; FE 연동</h3>
-    <ul>
-      <li><strong>문제(S):</strong> 불량 사전 인지 미흡, 우선 대응 품목 선정 지연</li>
-      <li><strong>과제(T):</strong> 텍스트 기반 불량 패턴 조기 탐지</li>
-      <li><strong>행동(A):</strong> Mecab 토크나이저 → TF‑IDF → RandomForest 베이스라인, 상위 특성/키워드 카드뷰, 라벨·샘플링 전략 정립</li>
-      <li><strong>결과(R):</strong> 우선 대응 품목 선정 리드타임 단축(데모 기준), Next Steps: <span class="highlight">LightGBM</span> 재학습·AUC ≥ 0.85 목표</li>
-    </ul>
+  <h3>Case 2 — AI 예측 &amp; FE 연동</h3>
+  <ul>
+    <li><strong>문제(S):</strong> 불량 사전 인지 미흡, 우선 대응 품목 선정 지연</li>
+    <li><strong>과제(T):</strong> 텍스트 기반 불량 패턴 조기 탐지</li>
+    <li><strong>행동(A):</strong> Mecab 토크나이저 → TF‑IDF → RandomForest 베이스라인, 상위 특성/키워드 카드뷰, 라벨·샘플링 전략 정립</li>
+    <li><strong>결과(R):</strong> 우선 대응 품목 선정 리드타임 단축(데모 기준), Next Steps: <span class="highlight">LightGBM</span> 재학습·AUC ≥ 0.85 목표</li>
+  </ul>
 
-   <h3>Case 3 — 협력사 KPI 대시보드</h3>
-    <ul>
-      <li><strong>문제(S):</strong> 월말 수작업 평가(약 2일), 기준 불일치, 산출 근거 추적 어려움</li>
-      <li><strong>과제(T):</strong> 평가지수(=KPI) <strong>표준화·자동 계산</strong>과 <strong>추적성(재현성)</strong> 확보</li>
-      <li><strong>행동(A):</strong> 
-        <ul>
-          <li><strong>CI/CD:</strong> GitHub Actions로 <span class="mono">PDA-defect</span>, <span class="mono">nan-dashboard</span> 워크플로우 실행 → 산출물(JSON) 자동 생성·배포</li>
-          <li><strong>데이터 저장:</strong> SQL 적재 없이 <strong>JSON 아티팩트</strong>를 GitHub에 버전 관리(근거 보존)</li>
-          <li><strong>산식 적용:</strong> 하드코딩된 규칙/알고리즘으로 <strong>평가지수</strong> 계산(모델·협력사별)</li>
-          <li><strong>출력/접근제어:</strong> Netlify FE에서 지표 시각화, <strong>Netlify Identity</strong>로 접근 제한</li>
-        </ul>
-      </li>
-      <li><strong>결과(R):</strong> 평가 리드타임 <span class="highlight">2일 → 실시간</span>, 기준 단일화·버전 추적, 협력사 간 비교 재현성 강화</li>
-    </ul>
-    </section>
+ <h3>Case 3 — 협력사 KPI 대시보드</h3>
+  <ul>
+    <li><strong>문제(S):</strong> 월말 수작업 평가(약 2일), 기준 불일치, 산출 근거 추적 어려움</li>
+    <li><strong>과제(T):</strong> 평가지수(=KPI) <strong>표준화·자동 계산</strong>과 <strong>추적성(재현성)</strong> 확보</li>
+    <li><strong>행동(A):</strong> 
+      <ul>
+        <li><strong>CI/CD:</strong> GitHub Actions로 <span class="mono">PDA-defect</span>, <span class="mono">nan-dashboard</span> 워크플로우 실행 → 산출물(JSON) 자동 생성·배포</li>
+        <li><strong>데이터 저장:</strong> SQL 적재 없이 <strong>JSON 아티팩트</strong>를 GitHub에 버전 관리(근거 보존)</li>
+        <li><strong>산식 적용:</strong> 하드코딩된 규칙/알고리즘으로 <strong>평가지수</strong> 계산(모델·협력사별)</li>
+        <li><strong>출력/접근제어:</strong> Netlify FE에서 지표 시각화, <strong>Netlify Identity</strong>로 접근 제한</li>
+      </ul>
+    </li>
+    <li><strong>결과(R):</strong> 평가 리드타임 <span class="highlight">2일 → 실시간</span>, 기준 단일화·버전 추적, 협력사 간 비교 재현성 강화</li>
+  </ul>
+
+ <h3>Case 4 — Mobile App Integration (진행 중, 2025.09~)</h3>
+  <ul>
+    <li><strong>문제(S):</strong> 수기 Google Sheets 입력으로 인한 데이터 지연, 실시간성 부족</li>
+    <li><strong>과제(T):</strong> QR 스캔 기반 즉시 작업 기록 및 실시간 데이터 전송</li>
+    <li><strong>행동(A):</strong>
+      <ul>
+        <li><strong>Flutter APP 개발:</strong> QR 스캔 → 작업 시작/완료 즉시 기록</li>
+        <li><strong>Connection Pool 최적화:</strong> DB 연결 관리로 응답시간 <span class="highlight">97% 개선 (15-45s → <500ms)</span></li>
+        <li><strong>Hybrid 운영 전략:</strong> 기존 Google Sheets 시스템 유지 + APP 병렬 운영</li>
+        <li><strong>오프라인 지원:</strong> SQLite 로컬 저장 + 네트워크 복구 시 자동 동기화</li>
+        <li><strong>0.1ms 캐시 조회:</strong> QR 메타데이터 초고속 조회 시스템 구축</li>
+      </ul>
+    </li>
+    <li><strong>현재 진행률:</strong> Phase 1 완료 - Flask API 4개 엔드포인트 구현, 오프라인 동기화 시스템, 통합 테스트 15개 케이스 검증</li>
+    <li><strong>다음 단계:</strong> WebSocket 실시간 동기화, Dashboard 통합 (Phase 2)</li>
+  </ul>
+  </section>
+
+<section>
+<h2 id="section-ongoing-projects">진행 중인 프로젝트</h2>
+
+<h3 id="section-mobile-app">📱 Mobile App Integration (2025.09~)</h3>
+<p>
+  현장 작업자를 위한 Flutter 기반 QR 스캔 작업 기록 시스템 개발 중. 기존 Google Sheets 시스템과 병렬 운영하며 실시간 데이터 전송 및 오프라인 지원을 구현하고 있습니다.
+</p>
+
+<div class="info-box" style="background: #e8f5e9; border-left: 4px solid #4caf50;">
+  <p><strong>Phase 1 완료 (2025.09.26):</strong></p>
+  <ul style="margin: 0.5em 0; padding-left: 20px;">
+    <li>Flask API 4개 엔드포인트 구현 완료</li>
+    <li>Connection Pool 최적화로 <span class="highlight">97% 성능 개선</span> (15-45s → <500ms)</li>
+    <li>오프라인 동기화 시스템 구축 (SQLite v2 스키마)</li>
+    <li>통합 테스트 15개 케이스 검증 완료</li>
+  </ul>
+</div>
+
+<h4 style="color: #0056b3; margin-top: 1.5em;">🎯 핵심 기술 구현</h4>
+<ul>
+  <li><strong>Hybrid 운영 전략:</strong> 기존 시스템 유지 + APP 병렬 운영으로 안정적 전환</li>
+  <li><strong>0.1ms QR 캐시 조회:</strong> qr_metadata_cache 테이블 기반 초고속 메타데이터 조회</li>
+  <li><strong>실시간 데이터 Push:</strong> 작업 시작/완료 즉시 Railway DB 전송</li>
+  <li><strong>오프라인 지원:</strong> 네트워크 단절 시 SQLite 로컬 저장 → 복구 시 자동 동기화</li>
+</ul>
+
+<h4 style="color: #0056b3; margin-top: 1.5em;">⏳ 다음 단계 (Phase 2)</h4>
+<ul>
+  <li><strong>WebSocket 실시간 동기화:</strong> Dashboard와 APP 간 양방향 실시간 통신</li>
+  <li><strong>Dashboard 통합:</strong> 기존 React Dashboard에 APP 데이터 실시간 반영</li>
+  <li><strong>100+ 동시 사용자 지원:</strong> Connection Pool 및 캐싱 최적화</li>
+</ul>
+</section>
+
 <section>
 <h2 id="section-future-vision">Next Steps: 예측·이벤트 기반으로 확장</h2>
 <ul>
-  <li><strong>API Blueprint 모듈화(1~2개월):</strong> Monolith(4,647줄) → <span class="mono">extract_api</span>, <span class="mono">app_api</span>, <span class="mono">dashboard_api</span> 분리, <strong>개발 생산성 3배</strong></li>
-  <li><strong>실시간 Read 채널(조건부):</strong> 초기 GET + <span class="highlight">SSE/WS</span> 증분 반영, 알림 <strong>< 100ms</strong>, 동시접속 100+</li>
-  <li><strong>성능/운영 목표:</strong> API p95 <strong>< 400ms</strong>, SLA <strong>99.9%</strong>, MTTA <strong>< 2분</strong></li>
-  <li><strong>데이터 무결성 강화:</strong> <span class="mono">event_uuid</span> 멱등키 100% 적용, 최근 30일 partial index, 충돌 자동해결</li>
-  <li><strong>장기 로드맵(선택):</strong> MSA/K8s, 이벤트 파이프라인(Webhook/Queue), Airflow 자동화</li>
+<li><strong>이벤트 기반 파이프라인:</strong> Cron 중심 → <span class="highlight">Webhook/Queue</span> 전환, 지연 60s → 5s 이내</li>
+<li><strong>불량 예측 모델:</strong> RandomForest 초기형 → <span class="highlight">LightGBM</span> 재학습, 검증 AUC ≥ 0.85</li>
+<li><strong>운영 안정성:</strong> SLA 99.9% 목표, 장애 알림 MTTA &lt; 2분</li>
+<li><strong>챗봇 분석 심화:</strong> 자연어 질의에 대해 SQL/시각화 자동 생성</li>
 </ul>
 </section>
-    <section>
-    <h2 id="section-skills">보유 기술 스택</h2>
-    <p class="source-note" style="text-align:left;margin-top:0.6em;">
-      <strong>운영 성과:</strong> QR 메타 0.1ms · API p95 < 500ms · 동시접속 100+ · 주간 15h+ 절감
-    </p>
-</section>
-<section>
-  <h2 id="section-milestones">Milestones</h2>
-  <div class="info-box">
-    <p><strong>2025-09:</strong> Phase 1.5 완료 (Staging DB/캐시/풀 적용, p95 < 500ms)</p>
-    <p><strong>2025-10~11:</strong> API Blueprint 모듈화 (Monolith 4,647줄 → 모듈 구조)</p>
-    <p><strong>2025-12~2026-02:</strong> 조건부 <strong>SSE/WS</strong> 실시간 알림/증분 반영</p>
-    <p><strong>2026-03~:</strong> (선택) 마이크로서비스/K8s 전환</p>
+  <section>
+  <h2 id="section-skills">보유 기술 스택</h2>
+  
+  <h3 id="section-4-1" style="font-size: 1.2em; border: none; padding-left: 0;">Backend &amp; API</h3>
+  <ul class="tech-stack">
+  <li>Python 3.8+</li>
+  <li>Flask 2.3+</li>
+  <li>SQLAlchemy</li>
+  <li>REST API</li>
+  <li>JWT Authentication</li>
+  <li>Auth0</li>
+  </ul>
+  
+  <h3 id="section-4-2" style="font-size: 1.2em; border: none; padding-left: 0;">Database &amp; Storage</h3>
+  <ul class="tech-stack">
+  <li>PostgreSQL 12+</li>
+  <li>SQL</li>
+  <li>Railway Cloud DB</li>
+  <li>JSON Database</li>
+  <li>SQLite (오프라인 동기화)</li>
+  <li>Connection Pool</li>
+  </ul>
+  
+  <h3 id="section-4-3" style="font-size: 1.2em; border: none; padding-left: 0;">Frontend &amp; Visualization</h3>
+  <ul class="tech-stack">
+  <li>React 18.2.0</li>
+  <li>HTML5</li>
+  <li>JavaScript ES6+</li>
+  <li>Chart.js 4.4.3</li>
+  <li>Recharts 2.12.7</li>
+  <li>Axios</li>
+  <li>CSS3</li>
+  </ul>
+
+  <h3 id="section-4-3-1" style="font-size: 1.2em; border: none; padding-left: 0;">Mobile Development</h3>
+  <ul class="tech-stack">
+  <li>Flutter (진행 중)</li>
+  <li>Dart</li>
+  <li>QR Code Scanner</li>
+  <li>오프라인 우선 아키텍처</li>
+  </ul>
+  
+  <h3 id="section-4-4" style="font-size: 1.2em; border: none; padding-left: 0;">AI &amp; Machine Learning</h3>
+  <ul class="tech-stack">
+  <li>OpenAI GPT-3.5</li>
+  <li>Random Forest</li>
+  <li>TF-IDF</li>
+  <li>scikit-learn</li>
+  <li>자연어 처리 (NLP)</li>
+  </ul>
+  
+  <h3 id="section-4-5" style="font-size: 1.2em; border: none; padding-left: 0;">APIs &amp; Integration</h3>
+  <ul class="tech-stack">
+  <li>Google Sheets API</li>
+  <li>Google Drive API</li>
+  <li>Gmail SMTP API</li>
+  <li>Slack SDK 3.26.2</li>
+  <li>KakaoTalk Webhook</li>
+  <li>Microsoft Teams API</li>
+  <li>Azure API</li>
+  </ul>
+  
+  <h3 id="section-4-6" style="font-size: 1.2em; border: none; padding-left: 0;">Infrastructure &amp; DevOps</h3>
+  <ul class="tech-stack">
+  <li>Docker</li>
+  <li>Railway (Backend 배포)</li>
+  <li>Netlify (Frontend 배포)</li>
+  <li>GitHub Actions</li>
+  <li>CI/CD Pipeline</li>
+  <li>On-premise VM</li>
+  </ul>
+  
+  <h3 id="section-4-7" style="font-size: 1.2em; border: none; padding-left: 0;">Development &amp; Tools</h3>
+  <ul class="tech-stack">
+  <li>Git &amp; GitHub</li>
+  <li>VS Code</li>
+  <li>Pandoc</li>
+  <li>GitHub Pages</li>
+  <li>환경변수 관리</li>
+  <li>보안 토큰 관리</li>
+  </ul>
+  
+  <h3 id="section-4-8" style="font-size: 1.2em; border: none; padding-left: 0;">핵심 역량 &amp; 숙련도</h3>
+  <div style="margin: 20px 0;">
+    <div style="margin-bottom: 15px;">
+      <strong>Full-Stack Development</strong>
+      <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
+        <div style="background: #28a745; height: 100%; width: 90%; border-radius: 10px;"></div>
+      </div>
+      <small>90% - Python, React, PostgreSQL 통합 시스템 구축</small>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong>AI Integration</strong>
+      <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
+        <div style="background: #007bff; height: 100%; width: 85%; border-radius: 10px;"></div>
+      </div>
+      <small>85% - OpenAI GPT, ML 모델 실서비스 적용</small>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong>DevOps &amp; Automation</strong>
+      <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
+        <div style="background: #fd7e14; height: 100%; width: 80%; border-radius: 10px;"></div>
+      </div>
+      <small>80% - CI/CD, 클라우드 배포, 자동화 구축</small>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong>Manufacturing DX</strong>
+      <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
+        <div style="background: #6f42c1; height: 100%; width: 95%; border-radius: 10px;"></div>
+      </div>
+      <small>95% - 제조업 디지털 전환, ROI 7,048% 달성</small>
+    </div>
   </div>
-</section>
-    <h3 id="section-4-1" style="font-size: 1.2em; border: none; padding-left: 0;">Backend &amp; API</h3>
-    <ul class="tech-stack">
-    <li>Python 3.8+</li>
-    <li>Flask 2.3+</li>
-    <li>SQLAlchemy</li>
-    <li>REST API</li>
-    <li>JWT Authentication</li>
-    <li>Auth0</li>
-    </ul>
-    
-    <h3 id="section-4-2" style="font-size: 1.2em; border: none; padding-left: 0;">Database &amp; Storage</h3>
-    <ul class="tech-stack">
-    <li>PostgreSQL 12+</li>
-    <li>SQL</li>
-    <li>Railway Cloud DB</li>
-    <li>JSON Database</li>
-    </ul>
-    
-    <h3 id="section-4-3" style="font-size: 1.2em; border: none; padding-left: 0;">Frontend &amp; Visualization</h3>
-    <ul class="tech-stack">
-    <li>React 18.2.0</li>
-    <li>HTML5</li>
-    <li>JavaScript ES6+</li>
-    <li>Chart.js 4.4.3</li>
-    <li>Recharts 2.12.7</li>
-    <li>Axios</li>
-    <li>CSS3</li>
-    </ul>
-    
-    <h3 id="section-4-4" style="font-size: 1.2em; border: none; padding-left: 0;">AI &amp; Machine Learning</h3>
-    <ul class="tech-stack">
-    <li>OpenAI GPT-3.5</li>
-    <li>Random Forest</li>
-    <li>TF-IDF</li>
-    <li>scikit-learn</li>
-    <li>자연어 처리 (NLP)</li>
-    </ul>
-    
-    <h3 id="section-4-5" style="font-size: 1.2em; border: none; padding-left: 0;">APIs &amp; Integration</h3>
-    <ul class="tech-stack">
-    <li>Google Sheets API</li>
-    <li>Google Drive API</li>
-    <li>Gmail SMTP API</li>
-    <li>Slack SDK 3.26.2</li>
-    <li>KakaoTalk Webhook</li>
-    <li>Microsoft Teams API</li>
-    <li>Azure API</li>
-    </ul>
-    
-    <h3 id="section-4-6" style="font-size: 1.2em; border: none; padding-left: 0;">Infrastructure &amp; DevOps</h3>
-    <ul class="tech-stack">
-    <li>Docker</li>
-    <li>Railway (Backend 배포)</li>
-    <li>Netlify (Frontend 배포)</li>
-    <li>GitHub Actions</li>
-    <li>CI/CD Pipeline</li>
-    <li>On-premise VM</li>
-    </ul>
-    
-    <h3 id="section-4-7" style="font-size: 1.2em; border: none; padding-left: 0;">Development &amp; Tools</h3>
-    <ul class="tech-stack">
-    <li>Git &amp; GitHub</li>
-    <li>VS Code</li>
-    <li>Pandoc</li>
-    <li>GitHub Pages</li>
-    <li>환경변수 관리</li>
-    <li>보안 토큰 관리</li>
-    </ul>
-    
-    <h3 id="section-4-8" style="font-size: 1.2em; border: none; padding-left: 0;">핵심 역량 &amp; 숙련도</h3>
-    <div style="margin: 20px 0;">
-      <div style="margin-bottom: 15px;">
-        <strong>Full-Stack Development</strong>
-        <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
-          <div style="background: #28a745; height: 100%; width: 90%; border-radius: 10px;"></div>
-        </div>
-        <small>90% - Python, React, PostgreSQL 통합 시스템 구축</small>
-      </div>
-      
-      <div style="margin-bottom: 15px;">
-        <strong>AI Integration</strong>
-        <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
-          <div style="background: #007bff; height: 100%; width: 85%; border-radius: 10px;"></div>
-        </div>
-        <small>85% - OpenAI GPT, ML 모델 실서비스 적용</small>
-      </div>
-      
-      <div style="margin-bottom: 15px;">
-        <strong>DevOps &amp; Automation</strong>
-        <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
-          <div style="background: #fd7e14; height: 100%; width: 80%; border-radius: 10px;"></div>
-        </div>
-        <small>80% - CI/CD, 클라우드 배포, 자동화 구축</small>
-      </div>
-      
-      <div style="margin-bottom: 15px;">
-        <strong>Manufacturing DX</strong>
-        <div style="background: #e9ecef; height: 20px; border-radius: 10px; margin-top: 5px;">
-          <div style="background: #6f42c1; height: 100%; width: 95%; border-radius: 10px;"></div>
-        </div>
-        <small>95% - 제조업 디지털 전환, ROI 7,048% 달성</small>
-      </div>
-    </div>
-    </section>
-    </div>
-    </main>
-    </body></html>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "김동규",
-      "jobTitle": "DX 엔지니어",
-      "url": "https://portpolio-twinfax2.netlify.app/",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Global Standard Technology"
-      },
-      "sameAs": [
-        "https://github-twinfax2.netlify.app",
-        "https://www.youtube.com/@yourchannel"
-      ],
-      "knowsAbout": [
-        "Manufacturing DX",
-        "Python",
-        "PostgreSQL",
-        "Flutter",
-        "Flask",
-        "Google Sheets API"
-      ]
-    }
-    </script>
+  </section>
+  </div>
+  </main>
+  </body></html>
