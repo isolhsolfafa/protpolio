@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제조기술1팀 DX시스템 구축 | GST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --secondary: #00D4AA;
+            --accent: #FF6B35;
+            --warning: #FFB800;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --text: #ffffff;
+            --text-dim: #a0a0b0;
+            --card-bg: rgba(255,255,255,0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            overflow-x: hidden;
+            font-size: 18px;
+        }
+
+        /* 프로그레스 바 */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(255,255,255,0.1);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* 컨트롤 패널 */
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            background: rgba(15, 15, 26, 0.95);
+            padding: 20px 40px;
+            border-radius: 60px;
+            border: 2px solid rgba(0, 102, 255, 0.3);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover, .control-btn.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .section-indicator {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .section-indicator span {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            font-weight: 700;
+            min-width: 50px;
+        }
+
+        /* 섹션 공통 */
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 배경 그리드 */
+        .bg-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 102, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 102, 255, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            pointer-events: none;
+        }
+
+        /* 애니메이션 */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-left {
+            opacity: 0;
+            transform: translateX(-80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-right {
+            opacity: 0;
+            transform: translateX(80px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .animate-scale {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .animate-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.45s; }
+        .delay-4 { transition-delay: 0.6s; }
+        .delay-5 { transition-delay: 0.75s; }
+        .delay-6 { transition-delay: 0.9s; }
+
+        /* ========== 섹션 1: 표지 ========== */
+        #cover {
+            background: linear-gradient(135deg, #0a1628 0%, #1a1a2e 50%, #0f0f1a 100%);
+        }
+
+        .cover-content {
+            text-align: center;
+            z-index: 10;
+        }
+
+        .company-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-bottom: 50px;
+        }
+
+        .company-badge img {
+            height: 30px;
+        }
+
+        .company-badge span {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        .cover-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 400;
+            color: var(--text);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .cover-title .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-date {
+            font-size: 2rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cover-author {
+            font-size: 1.5rem;
+            color: var(--text);
+        }
+
+        .cover-author span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ========== 섹션 2: 도입 배경 ========== */
+        #background {
+            background: linear-gradient(180deg, var(--darker) 0%, #0d1525 100%);
+        }
+
+        .section-title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 60px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .section-title .accent {
+            color: var(--accent);
+        }
+
+        .features-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin-bottom: 60px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 200px;
+        }
+
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            border: 3px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .feature-icon.blue { background: rgba(0, 102, 255, 0.15); border-color: var(--primary); }
+        .feature-icon.cyan { background: rgba(0, 212, 170, 0.15); border-color: var(--secondary); }
+        .feature-icon.green { background: rgba(76, 175, 80, 0.15); border-color: #4CAF50; }
+        .feature-icon.yellow { background: rgba(255, 184, 0, 0.15); border-color: var(--warning); }
+        .feature-icon.orange { background: rgba(255, 107, 53, 0.15); border-color: var(--accent); }
+
+        .feature-item h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .feature-item p {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* 문제점/도입필요성 */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-box {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .info-box.problem {
+            border-left: 5px solid var(--accent);
+        }
+
+        .info-box.solution {
+            border-left: 5px solid var(--secondary);
+        }
+
+        .info-box h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-box.problem h3 { color: var(--accent); }
+        .info-box.solution h3 { color: var(--secondary); }
+
+        .info-box ul {
+            list-style: none;
+        }
+
+        .info-box li {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-dim);
+        }
+
+        .info-box li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .info-box.problem li::before { color: var(--accent); }
+        .info-box.solution li::before { color: var(--secondary); }
+
+        /* ========== 섹션 3: 구성 요소 ========== */
+        #components {
+            background: linear-gradient(180deg, #0d1525 0%, var(--darker) 100%);
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+            max-width: 1300px;
+            width: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .component-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 45px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .component-card:nth-child(1)::before { background: linear-gradient(90deg, var(--primary), transparent); }
+        .component-card:nth-child(2)::before { background: linear-gradient(90deg, var(--secondary), transparent); }
+        .component-card:nth-child(3)::before { background: linear-gradient(90deg, var(--warning), transparent); }
+        .component-card:nth-child(4)::before { background: linear-gradient(90deg, var(--accent), transparent); }
+
+        .component-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.2);
+            z-index: 100;
+        }
+
+        .component-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .component-icon {
+            font-size: 2.8rem;
+        }
+
+        .component-card h3 {
+            font-size: 1.7rem;
+            font-weight: 700;
+        }
+
+        .component-card ul {
+            list-style: none;
+        }
+
+        .component-card li {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text-dim);
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .component-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* 비디오 모달 - body 레벨 */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .video-modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90vw;
+            max-width: 1400px;
+            background: var(--dark);
+            border: 3px solid var(--primary);
+            border-radius: 24px;
+            padding: 25px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 50px 150px rgba(0, 102, 255, 0.3);
+        }
+
+        .video-modal.active .video-modal-content {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .video-modal-content iframe {
+            width: 100%;
+            height: 70vh;
+            max-height: 700px;
+            border-radius: 16px;
+            background: #000;
+        }
+
+        .modal-title {
+            text-align: center;
+            padding: 20px 10px 5px;
+            font-size: 1.8rem;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* ========== 섹션 4: 운영 효과 ========== */
+        #effects {
+            background: radial-gradient(ellipse at center, #1a2540 0%, var(--darker) 70%);
+        }
+
+        .effects-container {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        @media (max-width: 1100px) {
+            .effects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .effects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .effect-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .effect-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .effect-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .effect-card h4 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .effect-stat {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .effect-card:nth-child(1) .effect-stat { color: var(--primary); }
+        .effect-card:nth-child(2) .effect-stat { color: var(--secondary); }
+        .effect-card:nth-child(3) .effect-stat { color: var(--warning); }
+        .effect-card:nth-child(4) .effect-stat { color: var(--accent); }
+        .effect-card:nth-child(5) .effect-stat { color: #9C27B0; }
+        .effect-card:nth-child(6) .effect-stat { color: #00BCD4; }
+
+        .effect-desc {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* ========== 섹션 5: 향후 계획 ========== */
+        #future {
+            background: linear-gradient(180deg, var(--darker) 0%, #0a1020 100%);
+        }
+
+        .future-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .future-year {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .future-year h3 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .future-year p {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .roadmap {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .roadmap-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .roadmap-item::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .roadmap-item:last-child::after {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .roadmap-item:nth-child(2)::after,
+            .roadmap-item:last-child::after {
+                display: none;
+            }
+        }
+
+        .roadmap-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .roadmap-item h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .roadmap-item p {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        .future-vision {
+            margin-top: 60px;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 170, 0.1));
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 20px;
+        }
+
+        .future-vision p {
+            font-size: 1.5rem;
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .future-vision strong {
+            color: var(--secondary);
+        }
+
+        /* ========== 섹션 6: 클로징 ========== */
+        #closing {
+            background: radial-gradient(ellipse at center, #1a1a3a 0%, var(--darker) 70%);
+        }
+
+        .closing-content {
+            text-align: center;
+        }
+
+        .closing-title {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .closing-message {
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-bottom: 50px;
+            line-height: 1.8;
+        }
+
+        .closing-author {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+        }
+
+        .closing-author span {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* 키보드 힌트 */
+        .keyboard-hint {
+            position: fixed;
+            bottom: 130px;
+            right: 40px;
+            background: rgba(15, 15, 26, 0.9);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        .keyboard-hint kbd {
+            background: rgba(255,255,255,0.1);
+            padding: 4px 10px;
+            border-radius: 5px;
+            margin: 0 4px;
+            font-family: inherit;
+        }
+
+        /* 페이지 번호 */
+        .page-number {
+            position: fixed;
+            top: 40px;
+            right: 50px;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            z-index: 100;
+        }
+
+        .page-number span {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* 포트폴리오 링크 버튼 */
+        .portfolio-link {
+            position: fixed;
+            top: 40px;
+            left: 50px;
+            z-index: 1000;
+        }
+
+        .portfolio-link a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 102, 255, 0.15);
+            border: 1px solid rgba(0, 102, 255, 0.4);
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-link a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- 포트폴리오 링크 -->
+    <div class="portfolio-link">
+        <a href="index.html">
+            <span>←</span> 포트폴리오로 돌아가기
+        </a>
+    </div>
+
+    <!-- 프로그레스 바 -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- 페이지 번호 -->
+    <div class="page-number">
+        <span id="currentPage">1</span> / <span id="totalPages">6</span>
+    </div>
+
+    <!-- 컨트롤 패널 -->
+    <div class="controls">
+        <button class="control-btn" id="prevBtn" title="이전 (←)">◀</button>
+        <button class="control-btn active" id="playBtn" title="재생/일시정지 (Space)">⏸</button>
+        <button class="control-btn" id="nextBtn" title="다음 (→)">▶</button>
+        <div class="section-indicator"><span id="timerDisplay">10</span>초</div>
+    </div>
+
+    <!-- 키보드 힌트 -->
+    <div class="keyboard-hint">
+        <kbd>Space</kbd> 재생/정지 &nbsp;|&nbsp; <kbd>←</kbd><kbd>→</kbd> 이동
+    </div>
+
+    <!-- ========== 섹션 1: 표지 ========== -->
+    <section id="cover">
+        <div class="bg-grid"></div>
+        <div class="cover-content">
+            <div class="company-badge animate-in">
+                <span>GST · Global Standard Technology</span>
+            </div>
+            <h1 class="cover-title animate-in delay-1">
+                제조기술1팀<br><span class="highlight">DX시스템 구축</span>
+            </h1>
+            <p class="cover-date animate-in delay-2">2025.12</p>
+            <p class="cover-author animate-in delay-3">
+                제조기술부 / 제조기술1팀 / <span>김동규</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ========== 섹션 2: 도입 배경 ========== -->
+    <section id="background">
+        <div class="bg-grid"></div>
+        <h2 class="section-title animate-in">도입 <span class="accent">배경</span></h2>
+        
+        <!-- 5대 핵심 기능 -->
+        <div class="features-row">
+            <div class="feature-item animate-in delay-1">
+                <div class="feature-icon blue">📊</div>
+                <h4>데이터 수집 자동화</h4>
+                <p>엑셀데이터가 자동으로<br>사내DB로 저장</p>
+            </div>
+            <div class="feature-item animate-in delay-2">
+                <div class="feature-icon cyan">🔍</div>
+                <h4>실시간 검색 기능</h4>
+                <p>실시간 데이터 제공을<br>위한 API 설정</p>
+            </div>
+            <div class="feature-item animate-in delay-3">
+                <div class="feature-icon green">📈</div>
+                <h4>대시보드 시각화</h4>
+                <p>진행률, 불량 및 KPI가<br>시각적으로 표시</p>
+            </div>
+            <div class="feature-item animate-in delay-4">
+                <div class="feature-icon yellow">🔔</div>
+                <h4>알림 시스템</h4>
+                <p>작업누락, 누락률<br>알림이 전송</p>
+            </div>
+            <div class="feature-item animate-in delay-5">
+                <div class="feature-icon orange">💬</div>
+                <h4>Slack/Kakao 연동</h4>
+                <p>챗봇 기반 KPI·작업<br>현황 질의응답</p>
+            </div>
+        </div>
+
+        <!-- 문제점 / 도입 필요성 -->
+        <div class="two-column">
+            <div class="info-box problem animate-left delay-2">
+                <h3>⚠️ 문제점</h3>
+                <ul>
+                    <li>검사·생산 데이터 직접 취합·입력 → 집계까지 <strong style="color:var(--accent)">1~2일 소요</strong></li>
+                    <li>종이 보고서·개별파일 관리로 보관·검색·공유 비효율</li>
+                    <li>데이터가 구조화되지 않아 CT·불량률·KPI 분석 어려움</li>
+                    <li>작업 지연·누락을 실시간 파악 불가, 항상 <strong style="color:var(--accent)">사후 대응</strong></li>
+                </ul>
+            </div>
+            <div class="info-box solution animate-right delay-3">
+                <h3>✅ 도입 필요성</h3>
+                <ul>
+                    <li>실시간 신뢰 데이터 확보로 <strong style="color:var(--secondary)">의사결정 속도·정확도 향상</strong></li>
+                    <li>협력사·내부팀 간 데이터 표준화로 KPI 평가 체계 일원화</li>
+                    <li>수작업 보고 체계 자동화로 시간·노동·비용 낭비 해소</li>
+                    <li>MES·PMS 연계 사전단계, <strong style="color:var(--secondary)">POC 선행 DX 기반 구축</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 섹션 3: 구성 요소 ========== -->
+    <section id="components">
+        <div class="bg-grid"></div>
+        <h2 class="section-title animate-in">구성 <span class="accent">요소</span></h2>
+        
+        <div class="components-grid">
+            <div class="component-card animate-left delay-1" data-video="https://drive.google.com/file/d/1XW5jbMsWktq3fmwBDPujuaZsgJIj6toH/preview" data-title="📥 데이터 자동 수집 데모">
+                <div class="component-header">
+                    <span class="component-icon">📥</span>
+                    <h3>데이터 자동 수집</h3>
+                </div>
+                <ul>
+                    <li>작업시간·검사 기록 S/N, 모델명 등 메타데이터 자동 추출</li>
+                    <li>협력사·모델 단위 데이터를 표준 구조로 자동 업데이트</li>
+                </ul>
+            </div>
+            
+            <div class="component-card animate-right delay-2" data-video="https://drive.google.com/file/d/1zqccb5IrTBjYSpTJMT_cOVkKh9VGT2YP/preview" data-title="📊 대시보드 시각화 데모">
+                <div class="component-header">
+                    <span class="component-icon">📊</span>
+                    <h3>대시보드 시각화</h3>
+                </div>
+                <ul>
+                    <li>실시간 데이터 기반 진행률·불량·CT 등 시각적 제공</li>
+                    <li>모델·협력사별 현황을 한 화면에서 비교 가능</li>
+                    <li>트렌드 차트·히트맵·카드뷰 활용 직관적 UI</li>
+                </ul>
+            </div>
+            
+            <div class="component-card animate-left delay-3" data-video="https://drive.google.com/file/d/1F-GSXs2Q3sRdT4-IChzJuibEAcXKEMxk/preview" data-title="🗃️ 표준 테이블 자동 적재 데모">
+                <div class="component-header">
+                    <span class="component-icon">🗃️</span>
+                    <h3>자동 표준 테이블 정리</h3>
+                </div>
+                <ul>
+                    <li>작업요약·진행률·불량·CT 등 표준 테이블 자동 적재</li>
+                    <li>MES/PMS 연계 고려한 확장 가능한 데이터 구조 설계</li>
+                </ul>
+            </div>
+            
+            <div class="component-card animate-right delay-4" data-video="https://drive.google.com/file/d/1Yjbk7HRxb18h81Zk25BhLtS7hbzzC1RZ/preview" data-title="🔔 검색/알림 시스템 데모">
+                <div class="component-header">
+                    <span class="component-icon">🔔</span>
+                    <h3>검색/알림 시스템</h3>
+                </div>
+                <ul>
+                    <li>작업 누락 자동 감지하여 Kakao 알림 전송</li>
+                    <li>S/N 기반 역추적 링크 → 문제 원인 파악 시간 단축</li>
+                    <li>향후 KPI·불량률 질의응답 자동화 가능</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 섹션 4: 운영 효과 ========== -->
+    <section id="effects">
+        <div class="bg-grid"></div>
+        <h2 class="section-title animate-in">운영 <span class="accent">효과</span></h2>
+        
+        <div class="effects-container">
+            <div class="effects-grid">
+                <div class="effect-card animate-in delay-1">
+                    <div class="effect-icon">⏱️</div>
+                    <h4>시간 절감</h4>
+                    <div class="effect-stat">90%↓</div>
+                    <p class="effect-desc">보고 및 집계 시간 단축<br>중복 보고 50% 이상 감소</p>
+                </div>
+                
+                <div class="effect-card animate-in delay-2">
+                    <div class="effect-icon">✅</div>
+                    <h4>휴먼 에러 감소</h4>
+                    <div class="effect-stat">30%→1%</div>
+                    <p class="effect-desc">누락률 대폭 감소<br>수동 입력 단계 제거</p>
+                </div>
+                
+                <div class="effect-card animate-in delay-3">
+                    <div class="effect-icon">💰</div>
+                    <h4>내재화</h4>
+                    <div class="effect-stat">₩0</div>
+                    <p class="effect-desc">연간 유지보수비<br>장애 대응시간 1/5 단축</p>
+                </div>
+                
+                <div class="effect-card animate-in delay-4">
+                    <div class="effect-icon">🎯</div>
+                    <h4>품질·납기 개선</h4>
+                    <div class="effect-stat">선제 파악</div>
+                    <p class="effect-desc">불량 원인·이상 공정<br>리드타임 지연 원인 파악</p>
+                </div>
+                
+                <div class="effect-card animate-in delay-5">
+                    <div class="effect-icon">📈</div>
+                    <h4>데이터 활용</h4>
+                    <div class="effect-stat">1일→0.5h</div>
+                    <p class="effect-desc">리드타임 분석시간 단축<br>협력사 평가 지수 공유</p>
+                </div>
+                
+                <div class="effect-card animate-in delay-6">
+                    <div class="effect-icon">🚀</div>
+                    <h4>확장성</h4>
+                    <div class="effect-stat">외주 0%</div>
+                    <p class="effect-desc">추가 기능 개발 시 외주 의존 없음<br>DX 플랫폼 '씨앗' 역할</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 섹션 5: 향후 계획 ========== -->
+    <section id="future">
+        <div class="bg-grid"></div>
+        <h2 class="section-title animate-in">향후 운영 방식 <span class="accent">전환</span></h2>
+        
+        <div class="future-container">
+            <div class="future-year animate-in delay-1">
+                <h3>2026 시스템 고도화</h3>
+                <p>현장 운영 데이터 자동 연결 → 스마트팩토리 확장</p>
+            </div>
+            
+            <div class="roadmap">
+                <div class="roadmap-item animate-in delay-2">
+                    <div class="roadmap-icon">📱</div>
+                    <h4>입력 구조 전환</h4>
+                    <p>APP에서 작업시간 자동 입력<br>종이 QR Worksheet 폐지<br>누락·오류 1%→0.5%</p>
+                </div>
+                
+                <div class="roadmap-item animate-in delay-3">
+                    <div class="roadmap-icon">🔄</div>
+                    <h4>운영 방식 변화</h4>
+                    <p>1시간마다 수집<br>→ APP 실시간 Push<br>실시간 CT·진행률 계산</p>
+                </div>
+                
+                <div class="roadmap-item animate-in delay-4">
+                    <div class="roadmap-icon">👥</div>
+                    <h4>협력사 관리 강화</h4>
+                    <p>출퇴근 기록 자동화<br>작업자별 Task 이력 관리<br>생산성 추적</p>
+                </div>
+                
+                <div class="roadmap-item animate-in delay-5">
+                    <div class="roadmap-icon">🏭</div>
+                    <h4>현장 관리 확장</h4>
+                    <p>설비 위치 실시간 Tracking<br>공정별 작업 현황 표시<br>이동·설비 사용 이력</p>
+                </div>
+            </div>
+            
+            <div class="future-vision animate-in delay-6">
+                <p>"현장의 모든 운영 데이터를 <strong>자동으로 연결</strong>하는 기반을 확보하여<br><strong>스마트팩토리 체계</strong>로 단계적으로 확장 가능"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 섹션 6: 클로징 ========== -->
+    <section id="closing">
+        <div class="bg-grid"></div>
+        <div class="closing-content">
+            <h2 class="closing-title animate-in">감사합니다</h2>
+            <p class="closing-message animate-in delay-1">
+                데이터 기반 의사결정의 시작,<br>
+                제조 현장 DX 혁신의 첫걸음
+            </p>
+            <p class="closing-author animate-in delay-2">
+                제조기술부 / 제조기술1팀 / <span>김동규</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- 비디오 모달 (body 레벨) -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-overlay"></div>
+        <div class="video-modal-content">
+            <iframe id="modalVideo" src="" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <p id="modalTitle" class="modal-title"></p>
+        </div>
+    </div>
+
+    <script>
+        // 설정
+        const SECTION_DURATION = 10000; // 10초
+        const sections = document.querySelectorAll('section');
+        const totalSections = sections.length;
+        let currentSection = 0;
+        let isPlaying = true;
+        let timer = null;
+        let countdown = SECTION_DURATION / 1000;
+
+        // DOM 요소
+        const progressBar = document.getElementById('progressBar');
+        const playBtn = document.getElementById('playBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const currentPageEl = document.getElementById('currentPage');
+        const totalPagesEl = document.getElementById('totalPages');
+
+        // 초기화
+        totalPagesEl.textContent = totalSections;
+
+        // 프로그레스 바 업데이트
+        function updateProgress() {
+            const progress = ((currentSection + 1) / totalSections) * 100;
+            progressBar.style.width = progress + '%';
+            currentPageEl.textContent = currentSection + 1;
+        }
+
+        // 애니메이션 트리거
+        function triggerAnimations(section) {
+            const animatedElements = section.querySelectorAll('.animate-in, .animate-left, .animate-right, .animate-scale');
+            animatedElements.forEach(el => {
+                el.classList.remove('visible');
+                void el.offsetWidth;
+                setTimeout(() => el.classList.add('visible'), 100);
+            });
+        }
+
+        // 섹션 이동
+        function goToSection(index) {
+            if (index < 0) index = totalSections - 1;
+            if (index >= totalSections) index = 0;
+            
+            currentSection = index;
+            sections[currentSection].scrollIntoView({ behavior: 'smooth' });
+            triggerAnimations(sections[currentSection]);
+            updateProgress();
+            resetTimer();
+        }
+
+        function nextSection() { goToSection(currentSection + 1); }
+        function prevSection() { goToSection(currentSection - 1); }
+
+        // 타이머
+        function resetTimer() {
+            countdown = SECTION_DURATION / 1000;
+            timerDisplay.textContent = countdown;
+            
+            if (timer) clearInterval(timer);
+            
+            if (isPlaying) {
+                timer = setInterval(() => {
+                    countdown--;
+                    timerDisplay.textContent = countdown;
+                    if (countdown <= 0) nextSection();
+                }, 1000);
+            }
+        }
+
+        // 재생/일시정지
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
+            playBtn.classList.toggle('active', isPlaying);
+            
+            if (isPlaying) {
+                resetTimer();
+            } else {
+                if (timer) clearInterval(timer);
+            }
+        }
+
+        // 이벤트 리스너
+        playBtn.addEventListener('click', togglePlay);
+        prevBtn.addEventListener('click', prevSection);
+        nextBtn.addEventListener('click', nextSection);
+
+        // 키보드
+        document.addEventListener('keydown', (e) => {
+            switch(e.code) {
+                case 'Space':
+                    e.preventDefault();
+                    togglePlay();
+                    break;
+                case 'ArrowRight':
+                case 'ArrowDown':
+                    nextSection();
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowUp':
+                    prevSection();
+                    break;
+            }
+        });
+
+        // 스크롤 감지
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = window.scrollY + window.innerHeight / 2;
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        if (currentSection !== index) {
+                            currentSection = index;
+                            triggerAnimations(section);
+                            updateProgress();
+                            resetTimer();
+                        }
+                    }
+                });
+            }, 100);
+        });
+
+        // 초기화
+        function init() {
+            updateProgress();
+            triggerAnimations(sections[0]);
+            resetTimer();
+            setupVideoModal();
+        }
+
+        // 비디오 모달 설정
+        function setupVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalContent = document.querySelector('.video-modal-content');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            const componentCards = document.querySelectorAll('.component-card[data-video]');
+            
+            let isHoveringCard = false;
+            let isHoveringModal = false;
+            
+            function showModal(videoUrl, title) {
+                modalVideo.src = videoUrl;
+                modalTitle.textContent = title;
+                modal.classList.add('active');
+            }
+            
+            function hideModal() {
+                if (!isHoveringCard && !isHoveringModal) {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        if (!modal.classList.contains('active')) {
+                            modalVideo.src = '';
+                        }
+                    }, 300);
+                }
+            }
+            
+            componentCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    isHoveringCard = true;
+                    const videoUrl = card.getAttribute('data-video');
+                    const title = card.getAttribute('data-title');
+                    showModal(videoUrl, title);
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    isHoveringCard = false;
+                    setTimeout(hideModal, 100);
+                });
+            });
+            
+            // 모달 위에서도 유지
+            modalContent.addEventListener('mouseenter', () => {
+                isHoveringModal = true;
+            });
+            
+            modalContent.addEventListener('mouseleave', () => {
+                isHoveringModal = false;
+                setTimeout(hideModal, 100);
+            });
+            
+            // 오버레이 클릭하면 닫기
+            modal.querySelector('.video-modal-overlay').addEventListener('click', () => {
+                isHoveringCard = false;
+                isHoveringModal = false;
+                modal.classList.remove('active');
+                modalVideo.src = '';
+            });
+        }
+
+        init();
+    </script>
+</body>
+</html>
