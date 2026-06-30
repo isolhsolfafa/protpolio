@@ -7,10 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0066FF;
-            --secondary: #00D4AA;
-            --accent: #FF6B35;
-            --warning: #FFB800;
+            --primary: #6366F1;        /* 인디고 (대시보드 --a) */
+            --primary-light: #818CF8;  /* 라이트 인디고 (--ah) */
+            --secondary: #818CF8;      /* 보조 = 라이트 인디고 */
+            --accent: #6366F1;         /* 강조도 인디고로 통일 */
+            --warning: #F59E0B;        /* 앰버 (--wa) */
+            --danger: #EF4444;         /* 문제 표기용 레드 (--da) */
             --dark: #1a1a2e;
             --darker: #0f0f1a;
             --text: #ffffff;
@@ -66,7 +68,7 @@
             background: rgba(15, 15, 26, 0.95);
             padding: 20px 40px;
             border-radius: 60px;
-            border: 2px solid rgba(0, 102, 255, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.3);
             backdrop-filter: blur(20px);
             z-index: 1000;
         }
@@ -132,8 +134,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(0, 102, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 102, 255, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
             background-size: 80px 80px;
             pointer-events: none;
         }
@@ -204,8 +206,8 @@
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            background: rgba(0, 102, 255, 0.1);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             padding: 12px 30px;
             border-radius: 50px;
             margin-bottom: 50px;
@@ -306,11 +308,12 @@
             transform: scale(1.1);
         }
 
-        .feature-icon.blue { background: rgba(0, 102, 255, 0.15); border-color: var(--primary); }
-        .feature-icon.cyan { background: rgba(0, 212, 170, 0.15); border-color: var(--secondary); }
-        .feature-icon.green { background: rgba(76, 175, 80, 0.15); border-color: #4CAF50; }
-        .feature-icon.yellow { background: rgba(255, 184, 0, 0.15); border-color: var(--warning); }
-        .feature-icon.orange { background: rgba(255, 107, 53, 0.15); border-color: var(--accent); }
+        /* 5색 → 인디고 단일 톤으로 통일 */
+        .feature-icon.blue,
+        .feature-icon.cyan,
+        .feature-icon.green,
+        .feature-icon.yellow,
+        .feature-icon.orange { background: rgba(99, 102, 241, 0.12); border-color: var(--primary); }
 
         .feature-item h4 {
             font-size: 1.3rem;
@@ -342,17 +345,17 @@
 
         .info-box {
             background: var(--card-bg);
-            border-radius: 24px;
+            border-radius: 16px;
             padding: 40px;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         .info-box.problem {
-            border-left: 5px solid var(--accent);
+            border-left: 3px solid var(--danger);
         }
 
         .info-box.solution {
-            border-left: 5px solid var(--secondary);
+            border-left: 3px solid var(--secondary);
         }
 
         .info-box h3 {
@@ -363,7 +366,7 @@
             gap: 12px;
         }
 
-        .info-box.problem h3 { color: var(--accent); }
+        .info-box.problem h3 { color: var(--danger); }
         .info-box.solution h3 { color: var(--secondary); }
 
         .info-box ul {
@@ -386,7 +389,7 @@
             font-weight: bold;
         }
 
-        .info-box.problem li::before { color: var(--accent); }
+        .info-box.problem li::before { color: var(--danger); }
         .info-box.solution li::before { color: var(--secondary); }
 
         /* ========== 섹션 3: 구성 요소 ========== */
@@ -411,7 +414,7 @@
         .component-card {
             background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
+            border-radius: 16px;
             padding: 45px;
             transition: all 0.4s ease;
             position: relative;
@@ -424,13 +427,11 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 3px;
         }
 
-        .component-card:nth-child(1)::before { background: linear-gradient(90deg, var(--primary), transparent); }
-        .component-card:nth-child(2)::before { background: linear-gradient(90deg, var(--secondary), transparent); }
-        .component-card:nth-child(3)::before { background: linear-gradient(90deg, var(--warning), transparent); }
-        .component-card:nth-child(4)::before { background: linear-gradient(90deg, var(--accent), transparent); }
+        /* 상단 바: 4색 → 인디고 단일 톤 */
+        .component-card::before { background: linear-gradient(90deg, var(--primary), transparent); }
 
         .component-card:hover {
             transform: translateY(-8px);
@@ -510,10 +511,10 @@
             max-width: 1400px;
             background: var(--dark);
             border: 3px solid var(--primary);
-            border-radius: 24px;
+            border-radius: 16px;
             padding: 25px;
             transition: transform 0.3s ease;
-            box-shadow: 0 50px 150px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 50px 150px rgba(99, 102, 241, 0.3);
         }
 
         .video-modal.active .video-modal-content {
@@ -567,7 +568,7 @@
         .effect-card {
             background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 35px;
             text-align: center;
             transition: all 0.3s ease;
@@ -596,12 +597,9 @@
             margin-bottom: 10px;
         }
 
-        .effect-card:nth-child(1) .effect-stat { color: var(--primary); }
-        .effect-card:nth-child(2) .effect-stat { color: var(--secondary); }
-        .effect-card:nth-child(3) .effect-stat { color: var(--warning); }
-        .effect-card:nth-child(4) .effect-stat { color: var(--accent); }
-        .effect-card:nth-child(5) .effect-stat { color: #9C27B0; }
-        .effect-card:nth-child(6) .effect-stat { color: #00BCD4; }
+        /* 6색 → 인디고 2톤 리듬 */
+        .effect-stat { color: var(--primary); }
+        .effect-card:nth-child(even) .effect-stat { color: var(--primary-light); }
 
         .effect-desc {
             font-size: 1.1rem;
@@ -630,6 +628,7 @@
             font-weight: 700;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             letter-spacing: 2px;
@@ -655,7 +654,7 @@
         .roadmap-item {
             background: var(--card-bg);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 35px 25px;
             text-align: center;
             position: relative;
@@ -704,9 +703,9 @@
             margin-top: 60px;
             text-align: center;
             padding: 40px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 170, 0.1));
-            border: 1px solid rgba(0, 102, 255, 0.3);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(129, 140, 248, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
         }
 
         .future-vision p {
@@ -735,6 +734,7 @@
             margin-bottom: 40px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 3px;
         }
@@ -805,8 +805,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(0, 102, 255, 0.15);
-            border: 1px solid rgba(0, 102, 255, 0.4);
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.4);
             color: var(--text);
             padding: 12px 24px;
             border-radius: 30px;
@@ -820,7 +820,7 @@
             background: var(--primary);
             border-color: var(--primary);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
         }
     </style>
 </head>
@@ -911,10 +911,10 @@
             <div class="info-box problem animate-left delay-2">
                 <h3>⚠️ 문제점</h3>
                 <ul>
-                    <li>검사·생산 데이터 직접 취합·입력 → 집계까지 <strong style="color:var(--accent)">1~2일 소요</strong></li>
+                    <li>검사·생산 데이터 직접 취합·입력 → 집계까지 <strong style="color:var(--danger)">1~2일 소요</strong></li>
                     <li>종이 보고서·개별파일 관리로 보관·검색·공유 비효율</li>
                     <li>데이터가 구조화되지 않아 CT·불량률·KPI 분석 어려움</li>
-                    <li>작업 지연·누락을 실시간 파악 불가, 항상 <strong style="color:var(--accent)">사후 대응</strong></li>
+                    <li>작업 지연·누락을 실시간 파악 불가, 항상 <strong style="color:var(--danger)">사후 대응</strong></li>
                 </ul>
             </div>
             <div class="info-box solution animate-right delay-3">
