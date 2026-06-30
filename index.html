@@ -109,12 +109,12 @@ body{font-family:'DM Sans',sans-serif;color:var(--c);background:var(--w);line-he
 /* Evolution flow — 5 step roadmap */
 .evo{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--mi);border-radius:12px;overflow:hidden;margin:8px 0 20px}
 .evo-step{background:var(--w);padding:22px 12px 18px;text-align:center;position:relative}
-.evo-step.cur{background:var(--as)}
+.evo-step.cur{background:var(--as);padding-top:34px}
 .evo-step .evo-n{font-family:'JetBrains Mono',monospace;font-size:0.7em;color:var(--sv);font-weight:600;letter-spacing:0.5px}
 .evo-step.cur .evo-n{color:var(--a)}
 .evo-step .evo-t{font-size:0.85em;font-weight:600;color:var(--c);margin-top:6px;line-height:1.3}
 .evo-step .evo-d{font-size:0.7em;color:var(--st);margin-top:6px;line-height:1.5}
-.evo-step .evo-badge{position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:var(--a);color:#fff;font-size:0.6em;font-weight:700;padding:2px 9px;border-radius:100px;white-space:nowrap;letter-spacing:0.5px}
+.evo-step .evo-badge{position:absolute;top:9px;left:50%;transform:translateX(-50%);background:var(--a);color:#fff;font-size:0.6em;font-weight:700;padding:2px 9px;border-radius:100px;white-space:nowrap;letter-spacing:0.5px}
 .evo-now{background:var(--sn);border:1px solid var(--mi);border-radius:10px;padding:18px 22px;margin-top:18px}
 .evo-now .evo-now-l{font-size:0.7em;font-weight:600;color:var(--a);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
 .evo-now p{font-size:0.86em;color:var(--g);line-height:1.85}
@@ -204,7 +204,7 @@ footer a:hover{color:var(--a)}
   <div class="stat"><div class="stat-v">1,700+</div><div class="stat-l">Tests</div></div>
   <div class="stat"><div class="stat-v">200+</div><div class="stat-l">실사용자 24/7</div></div>
   <div class="stat"><div class="stat-v">8</div><div class="stat-l">Schemas</div></div>
-  <div class="stat"><div class="stat-v">~9</div><div class="stat-l">억원 SI 규모(재산정)</div></div>
+  <div class="stat"><div class="stat-v">8~9</div><div class="stat-l">억원 SI 규모(재산정)</div></div>
 </div>
 
 <div class="divider"></div>
@@ -343,7 +343,7 @@ footer a:hover{color:var(--a)}
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mi);border-radius:10px;overflow:hidden">
     <div style="background:var(--w);padding:20px;text-align:center"><div class="mono" style="font-size:1.3em;font-weight:700;color:var(--c)">0~5d</div><div style="font-size:0.7em;color:var(--st);margin-top:4px">BE-FE 동기화 (5-10x)</div></div>
     <div style="background:var(--w);padding:20px;text-align:center"><div class="mono" style="font-size:1.3em;font-weight:700;color:var(--c)">42</div><div style="font-size:0.7em;color:var(--st);margin-top:4px">ADR 누적</div></div>
-    <div style="background:var(--w);padding:20px;text-align:center"><div class="mono" style="font-size:1.3em;font-weight:700;color:var(--c)">~9억</div><div style="font-size:0.7em;color:var(--st);margin-top:4px">외부 SI 견적 (재산정)</div></div>
+    <div style="background:var(--w);padding:20px;text-align:center"><div class="mono" style="font-size:1.3em;font-weight:700;color:var(--c)">8~9억</div><div style="font-size:0.7em;color:var(--st);margin-top:4px">외부 SI 견적 (재산정)</div></div>
     <div style="background:var(--w);padding:20px;text-align:center"><div class="mono" style="font-size:1.3em;font-weight:700;color:var(--c)">2건</div><div style="font-size:0.7em;color:var(--st);margin-top:4px">2025 사내 수상</div></div>
   </div>
 </div>
@@ -380,7 +380,7 @@ footer a:hover{color:var(--a)}
   </div>
   <p style="font-size:0.82em;color:var(--st);line-height:1.8">
     이 Data Thread는 향후 APS(Advanced Planning & Scheduling) 도입, 표준작업공수 관리, AI 기반 예측 분석의 기반이 됩니다.
-    시스템 비용(외부 SI 재산정 기준 약 9억)보다 <strong style="color:var(--c)">데이터가 흐르기 시작한 것</strong> 자체가 G-AXIS의 핵심 성과입니다.
+    시스템 비용(외부 SI 재산정 기준 약 8~9억)보다 <strong style="color:var(--c)">데이터가 흐르기 시작한 것</strong> 자체가 G-AXIS의 핵심 성과입니다.
   </p>
 </div>
 </section>
@@ -440,13 +440,13 @@ footer a:hover{color:var(--a)}
   <div class="case">
     <div class="case-num">01</div>
     <div class="case-title">PDA 제조 DX 통합 시스템 (2025.02 ~)</div>
-    <p><span class="hl">6-Repo Multi-Service Hybrid 아키텍처</span>로 단독 설계·1년 운영. Flask · PostgreSQL · Slack GPT 챗봇 · Kakao 알림 통합. RandomForest+TF-IDF 불량 예측 등 <span class="hl">6개 모듈</span> 운영. 결측률 <span class="hl">30%→1% 미만</span>, 외주 1억 대비 내부 200만원 구축으로 <span class="hl">ROI 7,048%</span> 달성. <span class="hl">2025년 전사 우수사원·혁신과제 2등 수상</span>.</p>
+    <p><span class="hl">6-Repo Multi-Service Hybrid 아키텍처</span>로 단독 설계·1년 운영. Flask · PostgreSQL · Slack GPT 챗봇 · Kakao 알림 통합. RandomForest+TF-IDF 불량 예측(PoC) 등 <span class="hl">6개 모듈</span> 운영. 결측률 <span class="hl">30%→1% 미만</span>, 외주 1억 대비 내부 200만원 구축으로 <span class="hl">ROI 7,048%</span> 달성. <span class="hl">2025년 전사 우수사원(우수상)·혁신과제 2등 — 사내 2건 수상</span>.</p>
   </div>
 
   <div class="case">
     <div class="case-num">02</div>
     <div class="case-title">Pull → App Push 아키텍처 전환 결단 (2026.02 ~)</div>
-    <p>PDA 1년 운영 중 Pull 기반 ETL의 구조적 한계 (<span class="hl">M/M 실측 불가</span>·임의 입력 가능) 인지 → 분석 보완이 아닌 <span class="hl">데이터 수집 매개체 자체를 재설계</span> 결단. PDA 1년 자산을 기반으로 4개월에 G-AXIS로 진화. 단순 시스템 개발이 아닌 <span class="hl">제조 DX 진화 단계 설계</span> 경험. 외부 SI 견적 <span class="hl">약 9억원 규모</span>(현 운영 범위 기준 재산정, 초기 마스터플랜 6.5억 대비 +38~50%)를 단독 완성.</p>
+    <p>PDA 1년 운영 중 Pull 기반 ETL의 구조적 한계 (<span class="hl">M/M 실측 불가</span>·임의 입력 가능) 인지 → 분석 보완이 아닌 <span class="hl">데이터 수집 매개체 자체를 재설계</span> 결단. PDA 1년 자산을 기반으로 4개월에 G-AXIS로 진화. 단순 시스템 개발이 아닌 <span class="hl">제조 DX 진화 단계 설계</span> 경험. 외부 SI 견적 <span class="hl">약 8~9억원 규모</span>(현 구축범위 기준 재산정, 초기 마스터플랜 약 6억 대비)를 단독 완성.</p>
   </div>
 
   <div class="case">
@@ -580,15 +580,10 @@ footer a:hover{color:var(--a)}
   <div class="sec-label">Resources</div>
   <h2 class="sec-title">데모 & 자료</h2>
   <p style="font-size:0.82em;color:var(--st);margin-bottom:20px;line-height:1.8">
-    아래 영상은 <strong style="color:var(--sl)">초기·레거시 버전 시연</strong>입니다. 현재 운영 버전(OPS v2.22.0 / VIEW v1.55.2 · 21페이지)은 화면·기능이 한층 고도화되어 있습니다.
+    데모 영상은 현재 운영 버전(OPS v2.22.0 / VIEW v1.55.2 · 21페이지) 기준으로 <strong style="color:var(--sl)">새로 촬영 준비 중</strong>입니다.
   </p>
   <div class="links">
-    <a href="https://youtu.be/K18ZJ4ki1KE" target="_blank" rel="noopener" class="link-item"><div class="link-emoji">📊</div><div class="link-title">AXIS-VIEW Demo</div><div class="link-desc">초기 화면 시연 · 현 v1.55.2 (21p)는 더 고도화</div></a>
-    <a href="https://youtube.com/shorts/12Ni_Rait9w" target="_blank" rel="noopener" class="link-item"><div class="link-emoji">📱</div><div class="link-title">AXIS-OPS Demo</div><div class="link-desc">초기 현장앱 촬영 · 현 v2.22.0 기준 개선</div></a>
-    <a href="https://youtu.be/Jrclx61FrDg" target="_blank" rel="noopener" class="link-item"><div class="link-emoji">▶️</div><div class="link-title">Legacy Dashboard</div><div class="link-desc">2025 레거시 대시보드</div></a>
-    <a href="https://youtube.com/shorts/sjsWLC4aH50" target="_blank" rel="noopener" class="link-item"><div class="link-emoji">🤖</div><div class="link-title">Slack Bot Demo</div><div class="link-desc">2025 AI 챗봇 자연어 질의</div></a>
     <a href="presentation.html" class="link-item"><div class="link-emoji">🎤</div><div class="link-title">DX 혁신과제 발표</div><div class="link-desc">프레젠테이션 자료</div></a>
-    <a href="https://github-twinfax2.netlify.app" target="_blank" rel="noopener" class="link-item"><div class="link-emoji">📋</div><div class="link-title">Technical README</div><div class="link-desc">기술 문서 & 아키텍처</div></a>
   </div>
 </div>
 </section>
@@ -602,7 +597,7 @@ footer a:hover{color:var(--a)}
   <h2 class="sec-title">여정</h2>
   <div class="tl">
     <div class="tl-i done"><div class="tl-d">2025.02</div><div class="tl-t">PDA 착수 — 6-Repo Multi-Service Hybrid</div><div class="tl-p">Python+HTML 시작, Sheets/Drive → PostgreSQL 자동화, ETL, GitHub Actions, Slack GPT 챗봇, Kakao 알림</div></div>
-    <div class="tl-i done"><div class="tl-d">2025.07</div><div class="tl-t">PDA 정식 운영 + Slack GPT 챗봇</div><div class="tl-p">6개 모듈 통합, RandomForest+TF-IDF 불량 예측, 결측률 30%→1% 미만, ROI 7,048%</div></div>
+    <div class="tl-i done"><div class="tl-d">2025.07</div><div class="tl-t">PDA 정식 운영 + Slack GPT 챗봇</div><div class="tl-p">6개 모듈 통합, RandomForest+TF-IDF 불량 예측(PoC), 결측률 30%→1% 미만, ROI 7,048%</div></div>
     <div class="tl-i done"><div class="tl-d">2025.12</div><div class="tl-t">2025 사내 수상 2건</div><div class="tl-p">전사 우수사원 · 혁신과제 2등 · G-AXIS 브랜드 확립 (GxColors)</div></div>
     <div class="tl-i done"><div class="tl-d">2026.02</div><div class="tl-t">G-AXIS 착수 — Pull→Push 아키텍처 전환</div><div class="tl-p">M/M 실측 가능 체계 확보, OPS(Flutter PWA)+VIEW(React+TS)+CORE(PostgreSQL) 3-Product 구조</div></div>
     <div class="tl-i done"><div class="tl-d">2026.05</div><div class="tl-t">Stage 1 안정화 — v2.22.0 / v1.55.2 · 100+ Sprints</div><div class="tl-p">1,700+ Tests · 약 200명 24/7 실사용 · ADR 42건 · BE-FE 동기화 0~5일 (산업 5-10x)</div></div>
